@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KartasController.cs" />
+    <Compile Include="Controllers\KoeficientsController.cs" />
     <Compile Include="Controllers\KorisniksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -260,6 +261,18 @@
     <Compile Include="Migrations\201905300951043_FirstMigration.cs" />
     <Compile Include="Migrations\201905300951043_FirstMigration.Designer.cs">
       <DependentUpon>201905300951043_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040937581_PonovljenaLozinka.cs" />
+    <Compile Include="Migrations\201906040937581_PonovljenaLozinka.Designer.cs">
+      <DependentUpon>201906040937581_PonovljenaLozinka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906050944433_KartaIzmenaMigration.cs" />
+    <Compile Include="Migrations\201906050944433_KartaIzmenaMigration.Designer.cs">
+      <DependentUpon>201906050944433_KartaIzmenaMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051030196_KorisnikKartaMigration.cs" />
+    <Compile Include="Migrations\201906051030196_KorisnikKartaMigration.Designer.cs">
+      <DependentUpon>201906051030196_KorisnikKartaMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -270,8 +283,10 @@
     <Compile Include="Models\CenovnikStavka.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Karta.cs" />
+    <Compile Include="Models\Koeficient.cs" />
     <Compile Include="Models\Kontrolor.cs" />
     <Compile Include="Models\Korisnik.cs" />
+    <Compile Include="Models\KorisnikKarta.cs" />
     <Compile Include="Models\Linija.cs" />
     <Compile Include="Models\Stanica.cs" />
     <Compile Include="Models\StanicaLinija.cs" />
@@ -279,9 +294,11 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\Repository\IKartaRepository.cs" />
+    <Compile Include="Persistence\Repository\IKoeficijentRepository.cs" />
     <Compile Include="Persistence\Repository\IKorisnikRepository.cs" />
     <Compile Include="Persistence\Repository\IRepository.cs" />
     <Compile Include="Persistence\Repository\KartaRepository.cs" />
+    <Compile Include="Persistence\Repository\KoeficijentRepository.cs" />
     <Compile Include="Persistence\Repository\KorisnikRepository.cs" />
     <Compile Include="Persistence\Repository\Repository.cs" />
     <Compile Include="Persistence\UnitOfWork\DemoUnitOfWork.cs" />
@@ -386,6 +403,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905300951043_FirstMigration.resx">
       <DependentUpon>201905300951043_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040937581_PonovljenaLozinka.resx">
+      <DependentUpon>201906040937581_PonovljenaLozinka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906050944433_KartaIzmenaMigration.resx">
+      <DependentUpon>201906050944433_KartaIzmenaMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051030196_KorisnikKartaMigration.resx">
+      <DependentUpon>201906051030196_KorisnikKartaMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

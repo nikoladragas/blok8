@@ -55,22 +55,5 @@ namespace WebApp.Persistence.Repository
             context.Set<TEntity>().Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
         }
-
-        public void SaveChanges()
-        {
-            context.SaveChanges();
-        }
-
-        public void Entry(TEntity entity, EntityState state)
-        {
-            context.Entry(entity).State = state;
-        }
-
-        public void Dispose()
-        {
-            context.Dispose();
-        }
-
-        
     }
 }

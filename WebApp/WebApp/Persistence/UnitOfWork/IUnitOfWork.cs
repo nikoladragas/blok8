@@ -9,10 +9,9 @@ namespace WebApp.Persistence.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IKartaRepository KartaRepository { get; }
-        IKorisnikRepository KorisnikRepository { get; }
-
-        IKoeficijentRepository KoeficijentRepository { get; }
+        ITicketRepository TicketRepository { get; set; }
+        ITravellerRepository TravellerRepository { get; set; }
+        ICoefficientRepository CoefficientRepository { get; set; }
         int Complete();
     }
 }

@@ -9,7 +9,7 @@ namespace WebApp.Models
     public class PricelistItem
     {
         public int Id { get; set; }
-        public double Cena { get; set; }
+        public double Price { get; set; }
 
         [ForeignKey("Pricelist")]
         public int PricelistId { get; set; }

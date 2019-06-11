@@ -12,9 +12,6 @@ namespace WebApp.Persistence
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<Controller> Controllers { get; set; }
-        public DbSet<Traveller> Travellers { get; set; }
         public DbSet<Pricelist> Pricelists { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<PricelistItem> PricelistItems { get; set; }
@@ -22,7 +19,7 @@ namespace WebApp.Persistence
         public DbSet<Station> Stations { get; set; }
         public DbSet<StationLine> StationLines { get; set; }
         public DbSet<Coefficient> Coefficients { get; set; }
-        public DbSet<TravellerTicket> TravellerTickets { get; set; }
+        public DbSet<UserTicket> ApplicationUserTickets { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

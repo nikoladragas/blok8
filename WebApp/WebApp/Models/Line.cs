@@ -8,5 +8,7 @@ namespace WebApp.Models
     public class Line
     {
         public int Id { get; set; }
+        public int Number { get; set; }
+        public int Color { get; set; }
     }
 }

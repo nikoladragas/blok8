@@ -10,10 +10,13 @@ namespace WebApp.Models
     {
         public int Id { get; set; }
         public DateTime IssueDate { get; set; }
-
+        public int Price { get; set; }
         [ForeignKey("PricelistItem")]
         public int PricelistItemId { get; set; }
         public PricelistItem PricelistItem { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public bool Valid { get; set; }
     }

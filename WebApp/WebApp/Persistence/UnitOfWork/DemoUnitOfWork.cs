@@ -20,7 +20,7 @@ namespace WebApp.Persistence.UnitOfWork
         [Dependency]
         public ITicketRepository TicketRepository { get; set; }
         [Dependency]
-        public ITravellerRepository TravellerRepository { get; set; }
+        public IApplicationUserRepository ApplicationUserRepository { get; set; }
         [Dependency]
         public ICoefficientRepository CoefficientRepository { get; set; }
 

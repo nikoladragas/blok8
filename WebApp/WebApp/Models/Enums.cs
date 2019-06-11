@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApp.Models
 {
-    public enum TravellerType
+    public enum UserType
     {
         Regular = 0,
         Student,

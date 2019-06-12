@@ -9,15 +9,18 @@ namespace WebApp.Models
     public class Ticket
     {
         public int Id { get; set; }
-        public DateTime IssueDate { get; set; }
-        public int Price { get; set; }
+        public DateTime? IssueDate { get; set; }
+
         [ForeignKey("PricelistItem")]
-        public int PricelistItemId { get; set; }
+        public int IdPricelistItem { get; set; }
         public PricelistItem PricelistItem { get; set; }
+
         [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
+        public string IdApplicationUser { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
         public bool Valid { get; set; }
+        public double Price { get; set; }
+
     }
 }

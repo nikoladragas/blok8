@@ -5,18 +5,21 @@ using System.Web;
 
 namespace WebApp.Models
 {
-    public enum UserType
+    public class Enums
     {
-        Regular = 0,
-        Student,
-        Retired
-    }
+        public enum UserType
+        {
+            RegularUser = 0,
+            Student,
+            Retired
+        }
 
-    public enum TicketType
-    {
-        HourTicket = 0,
-        DayTicket,
-        MonthTicket,
-        YearTicket
+        public enum TicketType
+        {
+            HourTicket = 0,
+            DayTicket,
+            MounthTicket,
+            YearTicket
+        }
     }
 }

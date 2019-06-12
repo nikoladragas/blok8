@@ -12,11 +12,11 @@ namespace WebApp.Models
         public double Price { get; set; }
 
         [ForeignKey("Pricelist")]
-        public int PricelistId { get; set; }
+        public int IdPricelist { get; set; }
         public Pricelist Pricelist { get; set; }
 
         [ForeignKey("Item")]
-        public int ItemId { get; set; }
+        public int IdItem { get; set; }
         public Item Item { get; set; }
     }
 }

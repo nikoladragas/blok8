@@ -21,8 +21,11 @@ namespace WebApp.Persistence.Repository
         void RemoveRange(IEnumerable<TEntity> entities);
 
         void Update(TEntity entity);
+
         void SaveChanges();
+
         void Entry(TEntity entity, EntityState state);
+
         void Dispose();
     }
 }

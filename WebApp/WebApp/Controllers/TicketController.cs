@@ -12,6 +12,7 @@ using static WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
+    [RoutePrefix("api/Tickets")]
     public class TicketController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -46,7 +47,7 @@ namespace WebApp.Controllers
         }
 
         [Route("GetPricelist")]
-        [ResponseType(typeof(double[]))]
+        [ResponseType(typeof(string[]))]
         public IHttpActionResult GetPricelist()
         {
             return Ok(UnitOfWork.TicketRepository.GetAllPrices());

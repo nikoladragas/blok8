@@ -8,24 +8,16 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 })
 export class PricelistComponent implements OnInit {
 
-  prices: number[];
-  prices2: number[];
-  broj: number;
-
+  price : any[] = [];
   
   constructor(private ticketService: TicketService) { }
 
   ngOnInit() {
-    //this.ticketService.getPricelist().subscribe(tempPrices => this.prices = tempPrices);
-    //this.prices[0] = 0;
-    /*
-    this.prices[1] = 1;
-    this.prices[2] = 2;
-
-    console.log(this.prices[1]);
-    console.log(this.prices[2]);*/
-
-    //this.broj = this.ticketService.getCena("HourTicket", "RegularUser");
+    this.getPrices();
   }
-
+  getPrices(){
+    this.ticketService.getPricelist().subscribe(data =>{
+      this.price = data;
+    } );
+  } 
 }

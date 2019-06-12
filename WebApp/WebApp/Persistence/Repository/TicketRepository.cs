@@ -23,7 +23,7 @@ namespace WebApp.Persistence.Repository
             return Math.Round(cena * coef, 2);
         }
 
-        public double[] GetAllPrices()
+        public string[] GetAllPrices()
         {
             double[] ret = new double[12];
             double[] coef = new double[3];
@@ -51,8 +51,21 @@ namespace WebApp.Persistence.Repository
             ret[9] = Math.Round(ret[1] * coef[2]);
             ret[10] = Math.Round(ret[2] * coef[2]);
             ret[11] = Math.Round(ret[3] * coef[2]);
+            /*
+            string ret2 = "";
+            for (int i = 0; i < 12; i++)
+            {
+                ret2 += ret[i].ToString();
+                if (i != 11)
+                    ret2 += '|';
+            }
+            */
 
-            return ret;
+            string[] ret2 = new string[12];
+            for (int i = 0; i < 12; i++)
+                ret2[i] = ret[i].ToString();
+
+            return ret2;
         }
     }
 }

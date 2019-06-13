@@ -15,11 +15,12 @@ export class TicketService {
   }
 
   buyTicket(price: any, type: any, email: any) : Observable<any> {
-    return this.http.post("http://localhost:52295/api/Tickets/BuyTicket",[price, type, email]);
+    return this.http.post('http://localhost:52295/api/Tickets/BuyTicket',[price, type, email]);
   } 
 
-  getCena(ticketType:any , userType : any ): Observable<number> {   //mozes obrisati vrv
+  getPrice(ticketType:any , userType : any ): Observable<number> {   //mozes obrisati vrv
     //console.log(this.http.get<number>(`http://localhost:52295/api/Tickets/CalculatePrice?ticketType=${ticketType}&userType=${userType}`));
+    console.log(ticketType + userType + "uServ");
     return this.http.get<number>(`http://localhost:52295/api/Tickets/CalculatePrice?ticketType=${ticketType}&userType=${userType}`);
   }
 }

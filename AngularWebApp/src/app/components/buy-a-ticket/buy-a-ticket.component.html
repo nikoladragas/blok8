@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-sm-3">
       <select class="form-control" (change)="ticketTypeChanged($event)">
-        <option>Hour Ticket</option>
-        <option *ngIf="loggedIn">Day Ticket</option>
-        <option *ngIf="loggedIn">Month Ticket</option>
-        <option *ngIf="loggedIn">Year Ticket</option>
+        <option>HourTicket</option>
+        <option *ngIf="loggedIn">DayTicket</option>
+        <option *ngIf="loggedIn">MonthTicket</option>
+        <option *ngIf="loggedIn">YearTicket</option>
       </select><br>
       <label class="form-control">Price: {{price}} RSD</label>
     </div><br>

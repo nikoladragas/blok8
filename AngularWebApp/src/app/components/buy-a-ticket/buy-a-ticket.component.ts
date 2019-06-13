@@ -15,18 +15,21 @@ export class BuyATicketComponent implements OnInit {
   loggedIn: any;
   userData: any;
   userProfileActive: any;
-  userProfileType: any;
+  userType: any;
 
   constructor(private userService: UserService, private ticketService: TicketService) { }
 
   ngOnInit() {
     this.loggedIn = localStorage['role'];
-    this.ticketType = "TimeTicket";
+    this.ticketType = "HourTicket";
     this.getUser();
+    //this.ticketService.getPrice(this.ticketType, this.userType).subscribe( tmp => this.price = tmp);
   }
 
   ticketTypeChanged(type: any){
     this.ticketType = type.target.value;
+    console.log(this.ticketType + "promena");
+    this.ticketService.getPrice(this.ticketType, this.userType).subscribe( tmp => this.price = tmp);
   }
 
   getUser(){
@@ -35,18 +38,20 @@ export class BuyATicketComponent implements OnInit {
       this.userService.getUserData(localStorage.getItem('name')).subscribe( data =>{
       this.userData = data;
       this.userProfileActive = this.userData.Activated;
-      this.userProfileType = this.userData.UserType;
+      this.userType = this.userData.UserType;
       if(!this.userProfileActive)
       {
-        this.userProfileType = 0;
+        this.userType = 0;
       }
-      this.ticketService.getCena(this.ticketType, this.userProfileType).subscribe( data => this.price = data);
+      console.log(this.userType + "get user" )
+      this.ticketService.getPrice(this.ticketType, this.userType).subscribe( data => this.price = data);
 
     });
     }
     else
     {
-      this.ticketService.getCena(this.ticketType, 0).subscribe( data => this.price = data);
+      console.log("ovde");
+      this.ticketService.getPrice(this.ticketType, 0).subscribe( data => this.price = data);
     }
   } 
 

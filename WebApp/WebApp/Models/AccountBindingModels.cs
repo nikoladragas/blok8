@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using static WebApp.Models.Enums;
 
 namespace WebApp.Models
 {
@@ -35,8 +36,30 @@ namespace WebApp.Models
     public class RegisterBindingModel
     {
         [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "DateOfBirth")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Photo")]
+        public string Photo { get; set; }
+        [Required]
+        [Display(Name = "UserType")]
+        public UserType UserType { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

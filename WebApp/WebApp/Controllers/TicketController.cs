@@ -41,9 +41,9 @@ namespace WebApp.Controllers
         // GET: api/Tickets/CalculatePrice
         [Route("CalculatePrice")]
         [ResponseType(typeof(double))]
-        public IHttpActionResult GetCena(TicketType ticketType, UserType userType)
+        public IHttpActionResult GetPrice(TicketType ticketType, UserType userType)
         {
-            return Ok(UnitOfWork.TicketRepository.CalculatePrice(ticketType, userType));
+            return Ok(UnitOfWork.TicketRepository.GetPrice(ticketType, userType));
 
         }
 

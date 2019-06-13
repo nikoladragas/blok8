@@ -31,7 +31,7 @@ namespace WebApp.Persistence.Repository
             ((ApplicationDbContext)this.context).Tickets.Add(ticket);
         }
         */
-        public double CalculatePrice(Enums.TicketType ticketType, Enums.UserType userType)
+        public double GetPrice(Enums.TicketType ticketType, Enums.UserType userType)
         {
             int pricelistId = ((ApplicationDbContext)this.context).Pricelists.Where(c => c.Active == true).Select(c => c.Id).First();
             int itemId = ((ApplicationDbContext)this.context).Items.Where(s => s.TicketType == ticketType).Select(s => s.Id).First();
@@ -75,5 +75,7 @@ namespace WebApp.Persistence.Repository
 
             return ret2;
         }
+
+       
     }
 }

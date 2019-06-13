@@ -10,7 +10,7 @@ namespace WebApp.Persistence.Repository
 {
     public interface ITicketRepository : IRepository<Ticket, int>
     {
-        double CalculatePrice(TicketType ticketType, UserType userType);
+        double GetPrice(TicketType ticketType, UserType userType);
         string[] GetAllPrices();
         //void BuyTicket(TicketType ticketType);
     }

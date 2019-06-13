@@ -1,0 +1,74 @@
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">Register</h5>
+            <form class="form-signin" [formGroup]="regForm" (ngSubmit)="register()">
+              <div class="form-label-group">
+                <input type="text" class="form-control" placeholder="Enter First Name" formControlName="name" autofocus>
+                <label>First Name</label>
+              </div>
+              <div class="form-label-group">
+                  <input type="text" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
+                  <label>Last Name</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="email" class="form-control" placeholder="Email address" formControlName="email">
+                <label>Email address</label>
+              </div>
+              <div class="form-label-group">
+                  <input type="text" class="form-control" placeholder="Enter address" formControlName="address">
+                  <label>Address</label>
+              </div>
+              <div class="form-label-group">
+                  <input type="date" class="form-control" placeholder="Enter Date Of Birth" formControlName="dateOfBirth">
+                  <label>Date Of Birth</label>
+              </div>
+              <select class="form-control" formControlName="userType">
+                  <option>RegularUser</option>
+                  <option>Student</option>
+                  <option>Retired</option>
+              </select>
+              <label>User Type</label>
+              <hr>
+              <div *ngIf="userType == 'Student'" class="form-label-group">
+                  <div class="input-group">
+                      <div class="custom-file">
+                        <input name="image" type="file" accept="image/*" class="custom-file-input" formControlName="photo">
+                        <label class="custom-file-label">Choose file</label>
+                      </div>
+                  </div>
+              </div>       
+              <div *ngIf="userType == 'Pensioner'" class="form-label-group">
+                  <div class="input-group">
+                      <div class="custom-file">
+                        <input name="image" type="file" accept="image/*" class="custom-file-input" formControlName="photo">
+                        <label class="custom-file-label">Choose file</label>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" class="form-control" placeholder="Enter Password" formControlName="password">
+                <label>Password</label>
+              </div>
+              
+              <div class="form-label-group">
+                <input type="password" class="form-control" placeholder="ConfirmPassword" formControlName="confirmPassword">
+                <label >Confirm Password</label>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+              <hr class="my-4">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

@@ -336,9 +336,33 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser()
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                DateOfBirth = model.DateOfBirth,
+                Address = model.Address,
+                Name = model.Name,
+                LastName = model.LastName,
+                Photo = model.Photo,
+                UserType = model.UserType,
+                Id = model.Email.Split('@')[0]
+
+            };
+
+            if (user.UserType == Enums.UserType.RegularUser)
+                user.Activated = true;
+            else
+                user.Activated = false;
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            result = await UserManager.AddToRoleAsync(user.Id, "AppUser");
 
             if (!result.Succeeded)
             {

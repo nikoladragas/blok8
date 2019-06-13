@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <select class="form-control" (change)="ticketTypeChanged($event)">
+        <option>Hour Ticket</option>
+        <option *ngIf="loggedIn">Day Ticket</option>
+        <option *ngIf="loggedIn">Month Ticket</option>
+        <option *ngIf="loggedIn">Year Ticket</option>
+      </select><br>
+      <label class="form-control">Price: {{price}} RSD</label>
+    </div><br>
+    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="buyTicket()">Buy Ticket</button>
+  </div>
+  <br />
+</div>

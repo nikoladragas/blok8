@@ -73,6 +73,7 @@ namespace WebApp.Controllers
             return user;
         }
 
+
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using WebApp.Models;
 using WebApp.Persistence;
 using WebApp.Persistence.UnitOfWork;
 using static WebApp.Models.Enums;
@@ -17,7 +18,7 @@ namespace WebApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        private readonly IUnitOfWork UnitOfWork;
+        private IUnitOfWork UnitOfWork;
         private ApplicationUserManager _userManager;
         public TicketController(ApplicationUserManager userManager, IUnitOfWork uw)
         {
@@ -37,7 +38,7 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: api/Tikets/CalculatePrice
+        // GET: api/Tickets/CalculatePrice
         [Route("CalculatePrice")]
         [ResponseType(typeof(double))]
         public IHttpActionResult GetCena(TicketType ticketType, UserType userType)
@@ -51,6 +52,31 @@ namespace WebApp.Controllers
         public IHttpActionResult GetPricelist()
         {
             return Ok(UnitOfWork.TicketRepository.GetAllPrices());
+        }
+
+        [Route("BuyTicket")]
+        [ResponseType(typeof(Ticket))]
+        public IHttpActionResult BuyTicket(string[] param) //price type email
+        {
+            TicketType ticketType;
+            Enum.TryParse(param[1], out ticketType);
+            int IdPricelistItem = UnitOfWork.PricelistRepository.getPricelistItem(ticketType);
+
+            Ticket ticket = new Ticket()
+            {
+                Valid = true,
+                IssueDate = DateTime.Now,
+                Price = double.Parse(param[0]),
+                IdPricelistItem = IdPricelistItem,
+                IdApplicationUser = null
+            };
+
+            if (param[2] != null)
+                ticket.IdApplicationUser = UnitOfWork.PricelistRepository.getIdByEmail(param[2]);
+
+            UnitOfWork.TicketRepository.Add(ticket);
+            UnitOfWork.Complete();
+            return Ok(ticket.Id);
         }
     }
 }

@@ -14,6 +14,23 @@ namespace WebApp.Persistence.Repository
         {
         }
 
+       /* public void BuyTicket(TicketType ticketType, string email)
+        {
+            Ticket ticket = new Ticket();
+            ticket.IssueDate = DateTime.Now;
+
+            int pricelistId = ((ApplicationDbContext)this.context).Pricelists.Where(c => c.Active == true).Select(c => c.Id).First();
+            ticket.IdPricelistItem = ((ApplicationDbContext)this.context).Items.Where(s => s.TicketType == ticketType).Select(s => s.Id).First();
+
+            ApplicationUser user = ((ApplicationDbContext)this.context).Users.Where(u => u.Email == email).First();
+
+            ticket.IdApplicationUser = user.Id;
+            ticket.Valid = true;
+            ticket.Price = CalculatePrice(ticketType, user.UserType);
+
+            ((ApplicationDbContext)this.context).Tickets.Add(ticket);
+        }
+        */
         public double CalculatePrice(Enums.TicketType ticketType, Enums.UserType userType)
         {
             int pricelistId = ((ApplicationDbContext)this.context).Pricelists.Where(c => c.Active == true).Select(c => c.Id).First();
@@ -51,15 +68,6 @@ namespace WebApp.Persistence.Repository
             ret[9] = Math.Round(ret[1] * coef[2]);
             ret[10] = Math.Round(ret[2] * coef[2]);
             ret[11] = Math.Round(ret[3] * coef[2]);
-            /*
-            string ret2 = "";
-            for (int i = 0; i < 12; i++)
-            {
-                ret2 += ret[i].ToString();
-                if (i != 11)
-                    ret2 += '|';
-            }
-            */
 
             string[] ret2 = new string[12];
             for (int i = 0; i < 12; i++)

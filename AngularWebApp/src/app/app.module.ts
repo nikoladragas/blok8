@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { PricelistComponent } from './components/pricelist/pricelist.component';
+import { BuyATicketComponent } from './components/buy-a-ticket/buy-a-ticket.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PricelistComponent } from './components/pricelist/pricelist.component';
     NavbarComponent,
     LoginComponent,
     PricelistComponent,
+    BuyATicketComponent,
   ],
   imports: [
     BrowserModule,

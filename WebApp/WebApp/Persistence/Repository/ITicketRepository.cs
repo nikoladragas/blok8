@@ -12,5 +12,6 @@ namespace WebApp.Persistence.Repository
     {
         double CalculatePrice(TicketType ticketType, UserType userType);
         string[] GetAllPrices();
+        //void BuyTicket(TicketType ticketType);
     }
 }

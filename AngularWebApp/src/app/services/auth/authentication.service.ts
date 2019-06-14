@@ -43,13 +43,13 @@ export class AuthenticationService {
     // });
   }
 
+  edit(user): Observable<any>{
+    console.log(user);
+    return this.httpClient.post(this.base_url+"/api/Account/Edit",user);
+  }
+
   logout(): void {
     this.isLoggedIn = false;
-    /*
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('role');
-    localStorage.removeItem('name');
-    localStorage.removeItem('randid');*/
     localStorage.clear();
   }
 

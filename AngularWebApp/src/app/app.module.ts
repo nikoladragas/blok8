@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PricelistComponent } from './components/pricelist/pricelist.component';
 import { BuyATicketComponent } from './components/buy-a-ticket/buy-a-ticket.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TimetableComponent } from './components/timetable/timetable.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RegisterComponent } from './components/register/register.component';
     PricelistComponent,
     BuyATicketComponent,
     RegisterComponent,
+    TimetableComponent,
   ],
   imports: [
     BrowserModule,

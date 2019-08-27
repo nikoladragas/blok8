@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TimetablesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -267,6 +268,10 @@
     <Compile Include="Migrations\201906131733235_TimetableStationLineMigration.cs" />
     <Compile Include="Migrations\201906131733235_TimetableStationLineMigration.Designer.cs">
       <DependentUpon>201906131733235_TimetableStationLineMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908271518110_migrationAug.cs" />
+    <Compile Include="Migrations\201908271518110_migrationAug.Designer.cs">
+      <DependentUpon>201908271518110_migrationAug.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -288,9 +293,11 @@
     <Compile Include="Persistence\Repository\IPricelistRepository.cs" />
     <Compile Include="Persistence\Repository\IRepository.cs" />
     <Compile Include="Persistence\Repository\ITicketRepository.cs" />
+    <Compile Include="Persistence\Repository\ITimetableRepository.cs" />
     <Compile Include="Persistence\Repository\PricelistRepository.cs" />
     <Compile Include="Persistence\Repository\Repository.cs" />
     <Compile Include="Persistence\Repository\TicketRepository.cs" />
+    <Compile Include="Persistence\Repository\TimetableRepository.cs" />
     <Compile Include="Persistence\UnitOfWork\DemoUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -399,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906131733235_TimetableStationLineMigration.resx">
       <DependentUpon>201906131733235_TimetableStationLineMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908271518110_migrationAug.resx">
+      <DependentUpon>201908271518110_migrationAug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

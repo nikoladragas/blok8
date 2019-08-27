@@ -61,12 +61,13 @@ namespace WebApp.Migrations
             }
 
             if (!context.Users.Any(u => u.UserName == "appu@yahoo.com"))
-            { 
+            {
                 var user = new ApplicationUser() { Id = "appu", UserName = "appu@yahoo.com", Email = "appu@yahoo.com", PasswordHash = ApplicationUser.HashPassword("Appu123!") };
                 userManager.Create(user);
                 userManager.AddToRole(user.Id, "AppUser");
             }
 
+            
             if (!context.Items.Any(i => i.TicketType == TicketType.HourTicket))
             {
                 var item = new Item()
@@ -103,12 +104,12 @@ namespace WebApp.Migrations
                 context.Items.Add(item);
             }
 
-            if(!context.Pricelists.Any(p => p.Active == true))
+            if (!context.Pricelists.Any(p => p.Active == true))
             {
                 var pricelist = new Pricelist()
                 {
-                    From = new DateTime(2018, 11, 11),
-                    To = new DateTime(2019, 11, 29),
+                    From = new DateTime(2019, 1, 1),
+                    To = new DateTime(2019, 12, 31),
                     Active = true
                 };
                 context.Pricelists.Add(pricelist);
@@ -136,50 +137,282 @@ namespace WebApp.Migrations
 
             if (!context.Coefficients.Any(c => c.UserType == UserType.Retired))
             {
-                var coefRetired = new Coefficient()
+                var coefPensioner = new Coefficient()
                 {
                     UserType = UserType.Retired,
-                    Coef = 0.7
+                    Coef = 0.6
                 };
-                context.Coefficients.Add(coefRetired);
+                context.Coefficients.Add(coefPensioner);
             }
 
-            var priceOfTimeTicket = 80;
-            var priceOfDayTicket = 110;
-            var priceOfMonthTicket = 1200;
-            var priceOfYearTicket = 6000;
+            var priceOfTimeTicket = 65;
+            var priceOfDayTicket = 100;
+            var priceOfMonthTicket = 1000;
+            var priceOfYearTicket = 5000;
 
             foreach (var pricelist in context.Pricelists)
             {
-                foreach (var item in context.Items)
+                if (!context.PricelistItems.Any(p => p.IdPricelist == pricelist.Id))
                 {
-                    var pricelistItem = new PricelistItem()
+                    foreach (var item in context.Items)
                     {
-                        IdPricelist = pricelist.Id,
-                        IdItem = item.Id,
-                        Price = 0
-                    };
+                        var pricelistItem = new PricelistItem()
+                        {
+                            IdPricelist = pricelist.Id,
+                            IdItem = item.Id,
+                            Price = 0
+                        };
 
-                    if (item.TicketType == TicketType.HourTicket)
-                    {
-                        pricelistItem.Price = priceOfTimeTicket;
-                    }
-                    else if (item.TicketType == TicketType.DayTicket)
-                    {
-                        pricelistItem.Price = priceOfDayTicket;
-                    }
-                    else if (item.TicketType == TicketType.MounthTicket)
-                    {
-                        pricelistItem.Price = priceOfMonthTicket;
-                    }
-                    else
-                    {
-                        pricelistItem.Price = priceOfYearTicket;
-                    }
+                        if (item.TicketType == TicketType.HourTicket)
+                        {
+                            pricelistItem.Price = priceOfTimeTicket;
+                        }
+                        else if (item.TicketType == TicketType.DayTicket)
+                        {
+                            pricelistItem.Price = priceOfDayTicket;
+                        }
+                        else if (item.TicketType == TicketType.MounthTicket)
+                        {
+                            pricelistItem.Price = priceOfMonthTicket;
+                        }
+                        else
+                        {
+                            pricelistItem.Price = priceOfYearTicket;
+                        }
 
-                    context.PricelistItems.Add(pricelistItem);
+                        context.PricelistItems.Add(pricelistItem);
+                    }
+                }
+
+            }
+
+            if (!context.Days.Any(i => i.dayType == DayType.Weekday))
+            {
+                var day = new Day()
+                {
+                    dayType = DayType.Weekday
+                };
+                context.Days.Add(day);
+            }
+
+            if (!context.Days.Any(i => i.dayType == DayType.Weekend))
+            {
+                var day = new Day()
+                {
+                    dayType = DayType.Weekend
+                };
+                context.Days.Add(day);
+            }
+
+
+            if (!context.TimetableActives.Any(p => p.Active == true))
+            {
+                var timetableActive = new TimetableActive()
+                {
+                    Start = new DateTime(2019, 1, 1),
+                    End = new DateTime(2019, 12, 31),
+                    Active = true
+                };
+                context.TimetableActives.Add(timetableActive);
+            }
+
+            if (!context.Lines.Any(i => i.LineName == "1"))
+            {
+                var line = new Line()
+                {
+                    LineName = "1",
+                    LineType = LineType.City
+
+                };
+                context.Lines.Add(line);
+            }
+
+            if (!context.Lines.Any(i => i.LineName == "4"))
+            {
+                var line = new Line()
+                {
+                    LineName = "4",
+                    LineType = LineType.City
+                };
+                context.Lines.Add(line);
+            }
+
+            if (!context.Lines.Any(i => i.LineName == "33"))
+            {
+                var line = new Line()
+                {
+                    LineName = "33",
+                    LineType = LineType.Suburban
+                };
+                context.Lines.Add(line);
+            }
+
+            if (!context.Lines.Any(i => i.LineName == "21"))
+            {
+                var line = new Line()
+                {
+                    LineName = "21",
+                    LineType = LineType.Suburban
+                };
+                context.Lines.Add(line);
+            }
+
+            #region Timetable data
+
+            string[] polasci1Radni = new string[] { "6:50", "7:50", "9:50", "11:50", "13:50", "14:50", "16:50" };
+            string[] polasci1Vikend = new string[] { "6:45", "7:45", "9:45", "11:45", "13:45", "14:45", "16:45" };
+            string[] polasci2Radni = new string[] { "6:30", "7:30", "9:30", "11:30", "13:30", "14:30", "16:30" };
+            string[] polasci2Vikend = new string[] { "6:25", "7:25", "9:25", "11:25", "13:25", "14:25", "16:25" };
+
+            foreach (var timetableActive in context.TimetableActives)
+            {
+                if (!context.Timetables.Any(p => p.IdTimetableActive == timetableActive.Id))
+                {
+                    foreach (var day in context.Days)
+                    {
+                        if (!context.Timetables.Any(p => p.IdDay == day.Id))
+                        {
+                            foreach (var line in context.Lines)
+                            {
+
+                                //polasci za prvu liniju - gradski
+                                if (line.LineName == "1" && day.dayType == DayType.Weekday)
+                                {
+                                    foreach (var polasci in polasci1Radni)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+                                if (line.LineName == "1" && day.dayType == DayType.Weekend)
+                                {
+                                    foreach (var polasci in polasci1Vikend)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+
+                                //polasci za drugu liniju - gradski
+                                if (line.LineName == "4" && day.dayType == DayType.Weekday)
+                                {
+                                    foreach (var polasci in polasci2Radni)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+
+                                if (line.LineName == "4" && day.dayType == DayType.Weekend)
+                                {
+                                    foreach (var polasci in polasci2Vikend)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+
+                                //Polasci za 3. liniju - prigradski
+                                if (line.LineName == "33" && day.dayType == DayType.Weekday)
+                                {
+                                    foreach (var polasci in polasci1Radni)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+
+                                if (line.LineName == "33" && day.dayType == DayType.Weekend)
+                                {
+                                    foreach (var polasci in polasci1Vikend)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+
+
+                                //Polasci za 4. liniju - prigradski
+                                if (line.LineName == "21" && day.dayType == DayType.Weekday)
+                                {
+                                    foreach (var polasci in polasci2Radni)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+                                if (line.LineName == "21" && day.dayType == DayType.Weekend)
+                                {
+                                    foreach (var polasci in polasci2Vikend)
+                                    {
+                                        var timetable = new Timetable()
+                                        {
+                                            IdTimetableActive = timetableActive.Id,
+                                            IdDay = day.Id,
+                                            IdLine = line.Id,
+                                            Departures = polasci
+
+                                        };
+                                        context.Timetables.Add(timetable);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                 }
             }
+
+            #endregion
         }
     }
 }

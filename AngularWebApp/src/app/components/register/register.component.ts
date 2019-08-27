@@ -43,8 +43,8 @@ export class RegisterComponent implements OnInit {
   register(){
     console.log(this.regForm.value);
     this.authService.register(this.regForm.value).subscribe();
-    //window.alert('Registration successfull!');
-    //window.location.href = "/login"
+    window.alert('Registration successfull!');
+    window.location.href = "/login"
   }
 
   login(){

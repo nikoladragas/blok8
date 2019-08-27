@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PricelistComponent } from './components/pricelist/pricelist.component';
 import { BuyATicketComponent } from './components/buy-a-ticket/buy-a-ticket.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TimetableComponent } from './components/timetable/timetable.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,11 +21,15 @@ const routes: Routes = [{
 },
 {
   path: 'buy-a-ticket',
-  component: BuyATicketComponent,
+  component: BuyATicketComponent
 },
 {
   path: 'register',
-  component: RegisterComponent,
+  component: RegisterComponent
+},
+{
+  path: 'timetable',
+  component: TimetableComponent
 }
 ];
 

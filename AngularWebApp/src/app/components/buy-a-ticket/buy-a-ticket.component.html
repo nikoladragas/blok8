@@ -8,6 +8,12 @@
         <option *ngIf="loggedIn">YearTicket</option>
       </select><br>
       <label class="form-control">Price: {{price}} RSD</label>
+      <div *ngIf="!loggedIn">
+          <input #emailInput name="email" type="email" class="form-control" placeholder="Email" (input)="email = emailInput.value" required>
+      </div>
+      <div>
+        {{email}}
+      </div>
     </div><br>
     <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="buyTicket()">Buy Ticket</button>
   </div>

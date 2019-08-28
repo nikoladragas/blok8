@@ -199,6 +199,60 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        [Route("DeleteUser")]
+        public async Task<IHttpActionResult> Brisac(EditBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = UserManager.FindByEmail(model.Email);
+
+            try
+            {
+                IdentityResult result = await UserManager.DeleteAsync(user);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return Ok();
+        }
+
+        [Route("Edit")]
+        public async Task<IHttpActionResult> Edit(EditBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = UserManager.FindByEmail(model.Email);
+            user.UserName = model.Email;
+            user.Email = model.Email;
+            user.DateOfBirth = DateTime.Parse(model.DateOfBirth);
+            user.Address = model.Address;
+            user.Name = model.Name;
+            user.LastName = model.LastName;
+            //user.Image = path;
+            //path = "";
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)

@@ -15,6 +15,7 @@ import { PricelistComponent } from './components/pricelist/pricelist.component';
 import { BuyATicketComponent } from './components/buy-a-ticket/buy-a-ticket.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TimetableComponent } from './components/timetable/timetable.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { TimetableComponent } from './components/timetable/timetable.component';
     BuyATicketComponent,
     RegisterComponent,
     TimetableComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

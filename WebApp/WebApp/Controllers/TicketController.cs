@@ -56,7 +56,7 @@ namespace WebApp.Controllers
 
         [Route("BuyTicket")]
         [ResponseType(typeof(Ticket))]
-        public IHttpActionResult BuyTicket(string[] param) //price type email
+        public IHttpActionResult BuyTicket(string[] param) //price type name email
         {
             TicketType ticketType;
             Enum.TryParse(param[1], out ticketType);
@@ -73,6 +73,9 @@ namespace WebApp.Controllers
 
             if (param[2] != null)
                 ticket.IdApplicationUser = UnitOfWork.PricelistRepository.getIdByEmail(param[2]);
+            else
+                EmailSender.SendEmail(param[3], "Buying Ticket", "You have successfully bought a ticket with ID: " + ticket.Id);
+            
 
             UnitOfWork.TicketRepository.Add(ticket);
             UnitOfWork.Complete();

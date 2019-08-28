@@ -16,6 +16,7 @@ export class BuyATicketComponent implements OnInit {
   userData: any;
   userProfileActive: any;
   userType: any;
+  email: any;
 
   constructor(private userService: UserService, private ticketService: TicketService) { }
 
@@ -56,7 +57,7 @@ export class BuyATicketComponent implements OnInit {
   } 
 
   buyTicket() {
-    this.ticketService.buyTicket(this.price, this.ticketType, localStorage.getItem('name')).subscribe(tmp => this.addTicket = tmp);
+    this.ticketService.buyTicket(this.price, this.ticketType, localStorage.getItem('name'), this.email).subscribe(tmp => this.addTicket = tmp);
     window.alert("Your ticket is bought!");
   }
 }

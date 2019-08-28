@@ -48,6 +48,11 @@ export class AuthenticationService {
     return this.httpClient.post(this.base_url+"/api/Account/Edit",user);
   }
 
+  deleter(user): Observable<any>{
+    console.log('deleter service');
+    return this.httpClient.post(this.base_url + "/api/Account/DeleteUser", user);
+  }
+
   logout(): void {
     this.isLoggedIn = false;
     localStorage.clear();

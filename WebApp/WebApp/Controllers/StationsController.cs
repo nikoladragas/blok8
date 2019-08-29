@@ -30,6 +30,8 @@ namespace WebApp.Controllers
             UnitOfWork = uw;
         }
 
+        public StationsController() { }
+
         public ApplicationUserManager UserManager
         {
             get

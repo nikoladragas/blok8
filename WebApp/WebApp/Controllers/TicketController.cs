@@ -26,6 +26,8 @@ namespace WebApp.Controllers
             UnitOfWork = uw;
         }
 
+        public TicketController() { }
+
         public ApplicationUserManager UserManager
         {
             get

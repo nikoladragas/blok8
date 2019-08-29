@@ -4,12 +4,12 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <div>
-                <label>Line: </label>
+                <label>Lines: </label>
             </div>
             <div class="form-label-group">
-              <select name="selectedStation" class="form-control" (change)="onSelect($event)">
+              <select name="selectedLine" class="form-control" (change)="onSelect($event)">
                 <option></option>
-                <option  *ngFor="let l of lines" [value]="s.Id">{{l.Name}}</option>
+                <option  *ngFor="let l of lines" [value]="l.Id">{{l.LineName}}</option>
               </select>
             </div>
           </div>
@@ -17,3 +17,37 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <form class="form-signin" [formGroup]="lineForm">
+                  <div class="form-label-group">
+                    <input name="name" type="text" class="form-control" placeholder="Name" formControlName="name">
+                  </div>
+                  <div class="form-label-group">
+                      <select formControlName="type" aria-placeholder="Line type" class="form-control">
+                        <option value='0'>City</option>
+                        <option value='1'>Suburban</option>
+                      </select>
+                    </div><br>
+                  <div *ngFor="let s of stations">
+                    <input type="checkbox" isChecked [checked]="s.Exist" value="s.Id" (change)="checkValue($event, s.Id)">{{s.Name}}
+                  </div>
+                  <div>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="addLine()">Add Line</button>
+                  </div>
+                  <div>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deleteLine()">Delete Line</button>
+                  </div>
+                  <div>
+                      <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="editLine()">Edit Line</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

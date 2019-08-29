@@ -5,7 +5,7 @@ export class Line{
 }
 
 export class Departure{
-    id: number;
+    Id: number;
     Departures: string;
     IdLine: number;
     IdTimetableActive: number;
@@ -17,4 +17,5 @@ export class Station{
     Address: string;
     XCoordinate: number;
     YCoordinate: number;
+    Exist: boolean = false;
 }

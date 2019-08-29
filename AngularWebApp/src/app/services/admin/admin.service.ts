@@ -39,4 +39,8 @@ export class AdminService {
   getLines(): Observable<any[]>{
     return this.httpClient.get<any[]>(this.base_url+"/api/Lines");
   }
+
+  addLine(stations: any, lineName: any, lineType: any): Observable<any>{
+    return this.httpClient.post<any>(this.base_url + `/api/Lines?stations=${stations}&lineName=${lineName}&lineType${lineType}`, [stations, lineName, lineType]);
+  }
 }

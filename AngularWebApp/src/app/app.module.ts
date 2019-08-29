@@ -16,6 +16,8 @@ import { BuyATicketComponent } from './components/buy-a-ticket/buy-a-ticket.comp
 import { RegisterComponent } from './components/register/register.component';
 import { TimetableComponent } from './components/timetable/timetable.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { StationsComponent } from './components/stations/stations.component';
+import { LinesComponent } from './components/lines/lines.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegisterComponent,
     TimetableComponent,
     ProfileComponent,
+    StationsComponent,
+    LinesComponent,
   ],
   imports: [
     BrowserModule,

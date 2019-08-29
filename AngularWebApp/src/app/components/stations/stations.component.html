@@ -1,0 +1,54 @@
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <div>
+                <label>Station: </label>
+            </div>
+            <div class="form-label-group">
+              <select name="selectedStation" class="form-control" (change)="onSelect($event)">
+                <option></option>
+                <option  *ngFor="let s of stations" [value]="s.Id">{{s.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <form class="form-signin" [formGroup]="stationForm">
+                  <div class="form-label-group">
+                    <input name="name" type="text" class="form-control" placeholder="Name" formControlName="name">
+                  </div>
+                  <div class="form-label-group">
+                    <input name="address" type="text" class="form-control" placeholder="Address" formControlName="address">
+                  </div>
+                  <div class="form-label-group">
+                    <input name="xCoordinate" type="text" class="form-control" placeholder="X Coordinate" formControlName="xCoordinate">
+                  </div>
+                  <div class="form-label-group">
+                    <input name="yCoordinate" type="text" class="form-control" placeholder="Y Coordinate" formControlName="yCoordinate">
+                  </div>
+                  <div>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="addStation()">Add Station</button>
+                  </div>
+                  <div>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deleteStation()">Delete Station</button>
+                  </div>
+                  <div>
+                      <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="editStation()">Edit Station</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>

@@ -23,6 +23,8 @@ namespace WebApp.Persistence.UnitOfWork
         public IPricelistRepository PricelistRepository { get; set; }
         [Dependency]
         public ITimetableRepository TimetableRepository { get; set; }
+        [Dependency]
+        public IStationRepository StationRepository { get; set; }
 
         public int Complete()
         {

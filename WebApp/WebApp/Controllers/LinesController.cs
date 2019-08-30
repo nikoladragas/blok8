@@ -105,7 +105,7 @@ namespace WebApp.Controllers
         // DELETE: api/Lines/5
         [Route("Edit")]
         [ResponseType(typeof(Line))]
-        public IHttpActionResult EditLine(string lineName, string lineType, int id, string stationsIds)
+        public IHttpActionResult EditLine(string stationsIds, string lineName, string lineType, int id)
         {
 
             List<int> intStations = new List<int>();

@@ -22,6 +22,7 @@ export class LinesComponent implements OnInit {
   selectedStations: Station[] = []; 
   lineStationsIds: any[] = [];
   i: any;
+  j: any;
 
   constructor(private formBuilder: FormBuilder, private adminService: AdminService) { }
 
@@ -36,8 +37,8 @@ export class LinesComponent implements OnInit {
 
     for(this.i = 0; this.i < this.lines.length; this.i++){
       if(this.lines[this.i].Id == this.selectedLineId){
-        this.lineForm.controls.lineName.setValue(this.lines[this.i].LineName);
-        this.lineForm.controls.lineType.setValue(this.lines[this.i].LineType);    //servis.getLine umesto fora?
+        this.lineForm.controls.name.setValue(this.lines[this.i].LineName);
+        this.lineForm.controls.type.setValue(this.lines[this.i].LineType);    //servis.getLine umesto fora?
       }
     }
 
@@ -50,7 +51,22 @@ export class LinesComponent implements OnInit {
     }
     else
     {
-      //TO DO
+      this.adminService.getLineStations(this.selectedLineId).subscribe(
+        data =>{
+          this.lineStationsIds = data;
+  
+          for(this.i = 0; this.i < this.stations.length; this.i++){
+            this.stations[this.i].Exist = false;
+            for(this.j = 0; this.j < data.length; this.j++){
+              if(this.stations[this.i].Id == data[this.j]){
+                this.stations[this.i].Exist = true;
+                //console.log("Ista stanica: " + this.stations[this.i].Name);
+                break;
+              }
+            }
+          }
+        }
+      );
     }
   }
   
@@ -65,18 +81,49 @@ export class LinesComponent implements OnInit {
     });
   }
 
+  uncheckStations(){
+    for(this.i = 0; this.i < this.stations.length; this.i++){
+      this.stations[this.i].Exist = false;
+    }
+  }
+
   addLine(){
-    this.adminService.addLine(this.lineForm.value, this.lineForm.controls.name, this.lineForm.controls.type).subscribe( data => 
+    this.adminService.addLine(this.lineStationsIds, this.lineForm.controls.name.value, this.lineForm.controls.type.value).subscribe( data => 
       {
         window.alert('Line with ID: ' + data.Id + ' added!');
         this.getLines();
         this.lineForm.reset();
         this.getStations();
 
-        for(this.i = 0; this.i < this.stations.length; this.i++){
-          this.stations[this.i].Exist = false;
-        }
+        this.uncheckStations();
       });
+  }
+
+  deleteLine(){
+    this.adminService.deleteLine(this.selectedLineId).subscribe(data => 
+    {
+      this.getLines();
+      this.getStations();   //zasto ovo?
+      this.selectedLineId = '';
+      this.lineForm.reset();
+
+      this.uncheckStations();
+      window.alert("Line deleted");
+    });
+  }
+
+  editLine(){
+    this.adminService.editLine(this.lineStationsIds, this.lineForm.controls.name.value, this.lineForm.controls.type.value, this.selectedLineId).subscribe(data => 
+      {
+        this.getLines();
+      this.getStations();   //zasto ovo?
+      this.selectedLineId = '';
+      this.lineForm.reset();
+      this.uncheckStations();
+
+      window.alert('Line edited');
+      }
+      );
   }
 
   checkValue(event: any, id: any){

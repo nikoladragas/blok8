@@ -41,6 +41,18 @@ export class AdminService {
   }
 
   addLine(stations: any, lineName: any, lineType: any): Observable<any>{
-    return this.httpClient.post<any>(this.base_url + `/api/Lines?stations=${stations}&lineName=${lineName}&lineType${lineType}`, [stations, lineName, lineType]);
+    return this.httpClient.post<any>(this.base_url + `/api/Lines?stations=${stations}&lineName=${lineName}&lineType=${lineType}`, [stations, lineName, lineType]);
+  }
+
+  editLine(stations: any, lineName: any, lineType: any, id: any): Observable<any>{
+    return this.httpClient.post<any>(this.base_url + `/api/Lines/Edit?stationsIds=${stations}&lineName=${lineName}&lineType=${lineType}&id=${id}`, [stations, lineName, lineType, id]);
+  }
+
+  getLineStations(id: any): Observable<any[]>{
+    return this.httpClient.get<any[]>(this.base_url+`/api/Lines/GetLineStations?id=${id}`);
+  }
+
+  deleteLine(id: any): Observable<any>{
+    return this.httpClient.delete<any>(this.base_url + `/api/Lines/Delete?id=${id}`);
   }
 }

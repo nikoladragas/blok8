@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
-import { catchError} from 'rxjs/operators';
-import { Station } from 'src/app/models/models';
+
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +53,13 @@ export class AdminService {
 
   deleteLine(id: any): Observable<any>{
     return this.httpClient.delete<any>(this.base_url + `/api/Lines/Delete?id=${id}`);
+  }
+
+  editPricelist(id: any, hour: any, day: any, month: any, year: any): Observable<any>{
+    return this.httpClient.post<any>(this.base_url + `/api/Pricelist/EditPricelist?id=${id}&hourTicket=${hour}&dayTicket=${day}&monthTicket=${month}&yearTicket=${year}`, [id, hour, day, month, year]);
+  }
+
+  addPricelist(to: any, hour: any, day: any, month: any, year: any): Observable<any>{
+    return this.httpClient.post<any>(this.base_url + `/api/Pricelist/AddPricelist?to=${to}&hourTicket=${hour}&dayTicket=${day}&monthTicket=${month}&yearTicket=${year}`, [hour, day, month, year]);
   }
 }

@@ -18,6 +18,7 @@ export class PricelistComponent implements OnInit {
   getPrices(){
     this.ticketService.getPricelist().subscribe(data =>{
       this.price = data;
+      console.log(data);
     } );
   } 
 }

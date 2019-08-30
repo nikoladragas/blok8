@@ -18,6 +18,7 @@ import { TimetableComponent } from './components/timetable/timetable.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StationsComponent } from './components/stations/stations.component';
 import { LinesComponent } from './components/lines/lines.component';
+import { AdminPricelistComponent } from './components/admin-pricelist/admin-pricelist.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LinesComponent } from './components/lines/lines.component';
     ProfileComponent,
     StationsComponent,
     LinesComponent,
+    AdminPricelistComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,5 +12,9 @@ namespace WebApp.Persistence.Repository
     {
         int getPricelistItem(TicketType ticketType);
         string getIdByEmail(string email);
+        Tuple<Pricelist, List<double>> getPrices();
+        void editPricelist(int id, double hourTicket, double dayTicket, double monthTicket, double yearTicket);
+        void addPricelist(DateTime to, double hourTicket, double dayTicket, double monthTicket, double yearTicket);
+        void addPricelistItem(double hourTicket, double dayTicket, double monthTicket, double yearTicket);
     }
 }

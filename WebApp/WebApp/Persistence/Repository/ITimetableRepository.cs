@@ -12,5 +12,7 @@ namespace WebApp.Persistence.Repository
     {
         List<Line> getTimetableLineItems(LineType lineType);
         List<Timetable> getTimetableItem(DayType dayType, LineType lineType, string lineName);
+        void addDepartures(int lineId, DayType dayType, string[] departures);
+        void editDeparture(int departureId, string departure);
     }
 }

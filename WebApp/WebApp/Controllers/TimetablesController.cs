@@ -25,8 +25,6 @@ namespace WebApp.Controllers
         private readonly IUnitOfWork UnitOfWork;
         private ApplicationUserManager _userManager;
 
-        public TimetablesController() { }
-
         public TimetablesController(ApplicationUserManager userManager, IUnitOfWork uw)
         {
 
@@ -49,7 +47,6 @@ namespace WebApp.Controllers
         // GET: api/Timetables
         public IQueryable<Timetable> GetTimetables(DayType dayType, LineType lineType, string lineName)
         {
-            var v =  UnitOfWork.TimetableRepository.getTimetableItem(dayType, lineType, lineName).AsQueryable();
             return UnitOfWork.TimetableRepository.getTimetableItem(dayType, lineType, lineName).AsQueryable();
         }
 
@@ -123,11 +120,41 @@ namespace WebApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = timetable.Id }, timetable);
         }
 
-        // DELETE: api/Timetables/5
-        [ResponseType(typeof(Timetable))]
-        public IHttpActionResult DeleteTimetable(int id)
+        [Route("AddDeparture")]
+        public IHttpActionResult AddDeparture(int idLine, DayType dayType, string departures)
         {
-            Timetable timetable = db.Timetables.Find(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            string[] dataDepartures = departures.Split(';');
+            UnitOfWork.TimetableRepository.addDepartures(idLine, dayType, dataDepartures);
+            UnitOfWork.TimetableRepository.SaveChanges();
+
+            return Ok(0);
+        }
+
+        [Route("EditDeparture")]
+        public IHttpActionResult EditDeparture(int departureId, string selectedDeparture)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            UnitOfWork.TimetableRepository.editDeparture(departureId, selectedDeparture);
+            UnitOfWork.TimetableRepository.SaveChanges();
+
+            return Ok(0);
+        }
+
+        // DELETE: api/Timetables/5
+        [Route("Delete")]
+        [ResponseType(typeof(Timetable))]
+        public IHttpActionResult DeleteTimetable(int departureId)
+        {
+            Timetable timetable = db.Timetables.Find(departureId);
             if (timetable == null)
             {
                 return NotFound();

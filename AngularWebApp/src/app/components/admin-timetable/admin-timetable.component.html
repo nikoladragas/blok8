@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <div>
+              <label>Lines: </label>
+          </div>
+          <div class="form-label-group">
+            <select name="selectedLine" class="form-control" (change)="onSelectLine($event)">
+              <option></option>
+              <option  *ngFor="let l of lines" [value]="l.Id">{{l.LineName}}</option>
+            </select>
+          </div>
+          <div>
+            <label>Day type: </label>
+          </div>
+          <div class="form-label-group">
+            <select name="selectedDay" class="form-control" (change)="onSelectDay($event)">
+              <option selected='selected' value='0'>Workday</option>
+              <option value='1'>Weekend</option>
+            </select>
+          </div>
+          <div class="d-flex align-items-start flex-column flex-wrap" style="height: 120px;">
+            <li *ngFor="let d of departures">
+              {{d.Departures}}
+            </li>
+          </div>
+          <form class="form-signin" [formGroup]="useForm">
+          <select name="selectedDeparture" formControlName="selectedDeparture" class="form-control" (change)="onSelectDeparture($event)">
+              <option></option>
+              <option  *ngFor="let d of departures" [value]="d.Id">{{d.Departures}}</option>
+          </select>
+          <br>
+            <input [value]="selectedDeparture" name="useDeparture" formControlName="useDeparture" name="departure" type="text" class="form-control">
+          <br>
+          <div>
+            <button class="btn btn-lg btn-primary text-uppercase active" (click)="onClickEdit()">Edit</button>
+          </div>
+          <div >
+            <button class="btn btn-lg btn-primary text-uppercase active" (click)="onClickDelete()">Delete</button>
+          </div>
+          <label class="badge badge-primary">Departures: </label>
+            <input formControlName="addDeparture"  type="text" class="form-control">
+            <br>
+            <div >
+                <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase active" (click)="onClickAdd()">Add</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  

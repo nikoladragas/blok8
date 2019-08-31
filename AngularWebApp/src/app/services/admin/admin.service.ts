@@ -62,4 +62,16 @@ export class AdminService {
   addPricelist(to: any, hour: any, day: any, month: any, year: any): Observable<any>{
     return this.httpClient.post<any>(this.base_url + `/api/Pricelist/AddPricelist?to=${to}&hourTicket=${hour}&dayTicket=${day}&monthTicket=${month}&yearTicket=${year}`, [hour, day, month, year]);
   }
+
+  deleteDeparture(departureId: any): Observable<any>{
+    return this.httpClient.delete<any>(this.base_url+`/api/Timetables/Delete?departureId=${departureId}`);
+  }
+
+  editDeparture(departureId: any, selectedDeparture: any): Observable<any>{
+    return this.httpClient.post<any>(this.base_url+`/api/Timetables/EditDeparture?departureId=${departureId}&selectedDeparture=${selectedDeparture}`, [departureId, selectedDeparture]);
+  }
+
+  addDepartures(idLine: any, dayType: any, departures: any): Observable<any>{
+    return this.httpClient.post<any>(this.base_url+`/api/Timetables/AddDeparture?idLine=${idLine}&dayType=${dayType}&departures=${departures}`,[idLine, dayType, departures]);
+  }
 }

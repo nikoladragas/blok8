@@ -19,6 +19,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { StationsComponent } from './components/stations/stations.component';
 import { LinesComponent } from './components/lines/lines.component';
 import { AdminPricelistComponent } from './components/admin-pricelist/admin-pricelist.component';
+import { AdminTimetableComponent } from './components/admin-timetable/admin-timetable.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AdminPricelistComponent } from './components/admin-pricelist/admin-pric
     StationsComponent,
     LinesComponent,
     AdminPricelistComponent,
+    AdminTimetableComponent,
   ],
   imports: [
     BrowserModule,

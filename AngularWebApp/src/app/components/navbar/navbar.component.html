@@ -41,6 +41,12 @@
         <li class="nav-item" *ngIf="loggedIn == 'Admin'">
           <a class="nav-link" routerLink="/admin-timetable">Timetable</a>
         </li>
+        <li class="nav-item" *ngIf="loggedIn == 'Controller'">
+          <a class="nav-link" routerLink="/ticket-validating">Tickets</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn == 'Controller'">
+            <a class="nav-link" routerLink="/user-validating">Users</a>
+          </li>
       </ul>
     </div>
   </div>

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -73,6 +76,126 @@ namespace WebApp.Controllers
             return user;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("GetNotActiveUsers")]
+        [ResponseType(typeof(IQueryable<ApplicationUser>))]
+        public IQueryable<ApplicationUser> GetNotActiveUsers()
+        {
+            List<ApplicationUser> ret = new List<ApplicationUser>();
+            foreach (var user in UserManager.Users.Where(p => p.Activated == Enums.RequestType.InProcess && p.Photo != null))
+            {
+                if (UserManager.IsInRole(user.Id, "AppUser"))
+                {
+                    ret.Add(user);
+                }
+            }
+            return ret.AsQueryable();
+        }
+
+        [Route("ValidateUser")]
+        [ResponseType(typeof(Task<IHttpActionResult>))]
+        public async Task<IHttpActionResult> ValidateUser(string email, bool validate)
+        {
+            ApplicationUser applicationUser = UserManager.FindByEmail(email);
+            if (validate)
+            {
+                EmailSender.SendEmail(email, "Profile Status", "Your profile is accepted");
+                applicationUser.Activated = Enums.RequestType.Activated;
+            }
+            else
+            {
+                EmailSender.SendEmail(email, "Profile Status", "Your profile is declined");
+                applicationUser.Activated = Enums.RequestType.Declined;
+            }
+
+            IdentityResult result = await UserManager.UpdateAsync(applicationUser);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(200);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("UploadPhoto")]
+        public async Task<IHttpActionResult> UploadImage()
+        {
+            var httpRequest = HttpContext.Current.Request;
+
+            var userEmail = httpRequest.Form["email"];
+            var user = _userManager.Users.Where(userDB => userDB.Email == userEmail).First();
+            EmailSender.SendEmail(userEmail, "Profile Status", "Your profile is being validated");
+
+            try
+            {
+                if (httpRequest.Files.Count > 0)
+                {
+                    foreach (string file in httpRequest.Files)
+                    {
+                        if (user != null)
+                        {
+                            var image = httpRequest.Files[file];
+                            string fileName = $"{user.Email}_{image.FileName}";
+                            var filePath = HttpContext.Current.Server.MapPath($"~/UploadFile/{fileName}");
+
+                            user.Photo = fileName;
+                            IdentityResult result = await _userManager.UpdateAsync(user);
+                            if (!result.Succeeded)
+                            {
+                                return GetErrorResult(result);
+                            }
+
+                            image.SaveAs(filePath);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return Ok(201);
+        }
+
+        [HttpGet]
+        [Route("DownloadPhoto")]
+        public IHttpActionResult DownloadImage(string email)
+        {
+            var user = _userManager.Users.Where(userDB => userDB.Email == email).First();
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            if (user.Photo == "" || user.Photo == null)
+            {
+                return Ok(204);
+            }
+
+            var filePath = HttpContext.Current.Server.MapPath($"~/UploadFile/{user.Photo}");
+
+            FileInfo fileInfo = new FileInfo(filePath);
+            string type = fileInfo.Extension.Split('.')[1];
+            byte[] data = new byte[fileInfo.Length];
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            using (FileStream fileStream = fileInfo.OpenRead())
+            {
+                fileStream.Read(data, 0, data.Length);
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.Content = new ByteArrayContent(data);
+                response.Content.Headers.ContentLength = data.Length;
+            }
+
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/png");
+
+            return Ok(data);
+        }
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -398,16 +521,22 @@ namespace WebApp.Controllers
                 Address = model.Address,
                 Name = model.Name,
                 LastName = model.LastName,
-                Photo = model.Photo,
+                //Photo = model.Photo,
                 UserType = model.UserType,
-                Id = model.Email.Split('@')[0]
+                //Id = model.Email.Split('@')[0]
 
             };
 
             if (user.UserType == Enums.UserType.RegularUser)
-                user.Activated = true;
+            {
+                EmailSender.SendEmail(user.Email, "Profile Status", "Your profile is accepted");
+                user.Activated = Enums.RequestType.Activated;
+            }
             else
-                user.Activated = false;
+            {
+                user.Activated = Enums.RequestType.InProcess;
+                EmailSender.SendEmail(user.Email, "Profile Status", "Your profile will be validated");
+            }
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -423,7 +552,7 @@ namespace WebApp.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(200);
         }
 
         // POST api/Account/RegisterExternal

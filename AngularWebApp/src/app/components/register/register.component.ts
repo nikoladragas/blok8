@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {AuthenticationService} from 'src/app/services/auth/authentication.service';
+import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,8 +10,10 @@ import {AuthenticationService} from 'src/app/services/auth/authentication.servic
 })
 export class RegisterComponent implements OnInit {
 
+  emailTaken: any;
   userType: any;
-  constructor(public router: Router, private fb: FormBuilder, private authService: AuthenticationService) { }
+  photoFile: any;
+  constructor(public router: Router, private fb: FormBuilder, private authService: AuthenticationService, private userService: UserService) { }
 
   regForm = this.fb.group({
     name: ['', Validators.required],
@@ -30,6 +33,8 @@ export class RegisterComponent implements OnInit {
   onSelect(event : any)
   {
     this.userType = event.target.value;
+    console.log(this.userType);
+
   }
 
   checkPassword(group: FormGroup)
@@ -41,16 +46,41 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log(this.regForm.value);
-    this.authService.register(this.regForm.value).subscribe();
-    window.alert('Registration successfull!');
-    window.location.href = "/login"
+    this.authService.register(this.regForm.value).subscribe( data=>{
+
+      console.log(data);
+      if(!data)
+      {
+        window.alert('User with email: ' + this.regForm.controls.email.value + ' already registered!')
+        this.emailTaken = true;
+      }
+      else if (data.toString() == 200) 
+      {
+        let formData = new FormData();
+
+        if(this.photoFile != null){
+          formData.append('image', this.photoFile, this.photoFile.name);
+          formData.append('email', this.regForm.controls.email.value);
+        }
+        if(this.photoFile != null){
+          this.userService.uploadImage(formData).subscribe();
+        }
+        window.alert('Successfully registered!');
+        this.emailTaken = false;
+        this.login();
+      }
+    });
   }
 
-  login(){
+  onImageChange(event){
+    this.photoFile = <File>event.target.files[0];
+  }
+
+  login(){//e
     this.authService.login(this.regForm.controls.email.value, this.regForm.controls.password.value).subscribe(
       res => {
         console.log(res.access_token);
+        console.log('JEL SELOGINUJE JEBOTE');
 
         let jwt = res.access_token;
         let jwtData = jwt.split('.')[1]

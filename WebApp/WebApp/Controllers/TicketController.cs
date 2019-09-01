@@ -56,6 +56,22 @@ namespace WebApp.Controllers
             return Ok(UnitOfWork.TicketRepository.GetAllPrices());
         }
 
+        [Route("GetTicket")]
+        [ResponseType(typeof(IHttpActionResult))]
+        public IHttpActionResult GetTicket(int id)
+        {
+            if (UnitOfWork.TicketRepository.CheckTicket(id))
+            {
+                UnitOfWork.TicketRepository.SaveChanges();
+                return Ok(200);
+            }
+            else
+            {
+                UnitOfWork.TicketRepository.SaveChanges();
+                return Ok(204);
+            }
+        }
+
         [Route("BuyTicket")]
         [ResponseType(typeof(Ticket))]
         public IHttpActionResult BuyTicket(string[] param) //price type name email

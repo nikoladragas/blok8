@@ -16,15 +16,17 @@ export class ProfileComponent implements OnInit {
     lastName: ['', Validators.required],
     address: ['', Validators.required],
     dateOfBirth: ['', Validators.required],
-    email: ['', Validators.required]
+    email: ['', Validators.required],
+    userType: ['', Validators.required],
+    photo: ['']
   });
 
   userData: any;
-  userTypeProfileType: any;
   userProfileActivated: any;
   tmpDate = new Date();
   selectValue: any;
   userRole: any;
+  imageFile: any;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, public router: Router, private authServ: AuthenticationService) { }
 
@@ -45,23 +47,44 @@ export class ProfileComponent implements OnInit {
 
       return pass == confirmPass ? null : {notSame: true}
   }
-  mrs(){
-    console.log("aa");
-  }
+  
 
   deleter(){
     console.log('jel udje');
     this.authServ.deleter(this.profileForm.value).subscribe();
-    //window.alert('Profile is deleted.');
+    window.alert('Profile is deleted.');
     //this.authServ.logout();
     localStorage.clear();
-    //window.location.href = "/login";
+    window.location.href = "/login";
   }
 
   edit(){
-    this.authServ.edit(this.profileForm.value).subscribe();
+
+    let formData = new FormData();
+
+    if(this.imageFile != null){
+      formData.append('image', this.imageFile, this.imageFile.name);
+      formData.append('email', this.profileForm.controls.email.value);
+      this.profileForm.controls.activated.setValue('0');
+      
+    }
+
+    this.authServ.edit(this.profileForm.value).subscribe(
+      data=>
+      {
+        if(this.imageFile != null){
+          this.userService.uploadImage(formData).subscribe();
+        }
+      }
+    );
     window.alert('Profile is edited.');
   }
+
+  onImageChange(event){
+    this.imageFile = <File>event.target.files[0];
+  }
+
+  
 
   getUser(){
     if(localStorage.getItem('name'))
@@ -93,13 +116,17 @@ export class ProfileComponent implements OnInit {
       {
         console.log(this.userData.DateOfBirth)
         let bday = this.userData.DateOfBirth.split('T',2);
-        this.profileForm.controls.dateOfBirth.setValue(`${bday[0]}`);   //koji je ovo apostrof
+        this.profileForm.controls.dateOfBirth.setValue(`${bday[0]}`);   
       }
       if(this.userData.Email)
       {
         this.profileForm.controls.email.setValue(this.userData.Email);
       }
-
+      if(this.userData.UserType)
+      {
+        console.log(this.userData.UserType);
+        this.profileForm.controls.userType.setValue(this.userData.UserType);
+      }
       });
     }
   }

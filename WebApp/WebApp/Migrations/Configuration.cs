@@ -67,7 +67,14 @@ namespace WebApp.Migrations
                 userManager.AddToRole(user.Id, "AppUser");
             }
 
-            
+            if (!context.Users.Any(u => u.UserName == "controller@yahoo.com"))
+            {
+                var user = new ApplicationUser() { Id = "controller", UserName = "controller@yahoo.com", Email = "controller@yahoo.com", PasswordHash = ApplicationUser.HashPassword("Controller123!") };
+                userManager.Create(user);
+                userManager.AddToRole(user.Id, "Controller");
+            }
+
+
             if (!context.Items.Any(i => i.TicketType == TicketType.HourTicket))
             {
                 var item = new Item()
@@ -86,11 +93,11 @@ namespace WebApp.Migrations
                 context.Items.Add(item);
             }
 
-            if (!context.Items.Any(i => i.TicketType == TicketType.MounthTicket))
+            if (!context.Items.Any(i => i.TicketType == TicketType.MonthTicket))
             {
                 var item = new Item()
                 {
-                    TicketType = TicketType.MounthTicket
+                    TicketType = TicketType.MonthTicket
                 };
                 context.Items.Add(item);
             }
@@ -171,7 +178,7 @@ namespace WebApp.Migrations
                         {
                             pricelistItem.Price = priceOfDayTicket;
                         }
-                        else if (item.TicketType == TicketType.MounthTicket)
+                        else if (item.TicketType == TicketType.MonthTicket)
                         {
                             pricelistItem.Price = priceOfMonthTicket;
                         }

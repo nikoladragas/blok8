@@ -24,4 +24,8 @@ export class TicketService {
     console.log(ticketType + userType + "uServ");
     return this.http.get<number>(`http://localhost:52295/api/Tickets/CalculatePrice?ticketType=${ticketType}&userType=${userType}`);
   }
+
+  getTicket(id: any): Observable<any>{
+    return this.http.get<any>("http://localhost:52295/api/Tickets/GetTicket?id="+id);
+  }
 }

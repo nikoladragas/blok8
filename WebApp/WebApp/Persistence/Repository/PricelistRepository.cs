@@ -47,7 +47,7 @@ namespace WebApp.Persistence.Repository
                 {
                     ((ApplicationDbContext)this.context).PricelistItems.Where(pi => pi.IdPricelist == id && pi.IdItem == v.Id).FirstOrDefault().Price = dayTicket;
                 }
-                else if (v.TicketType == TicketType.MounthTicket)
+                else if (v.TicketType == TicketType.MonthTicket)
                 {
                     ((ApplicationDbContext)this.context).PricelistItems.Where(pi => pi.IdPricelist == id && pi.IdItem == v.Id).FirstOrDefault().Price = monthTicket;
                 }
@@ -83,7 +83,7 @@ namespace WebApp.Persistence.Repository
             ((ApplicationDbContext)this.context).PricelistItems.Add(new PricelistItem()
             {
                 IdPricelist = pricelistId,
-                IdItem = ((ApplicationDbContext)this.context).Items.Where(i => i.TicketType == TicketType.MounthTicket).Select(s => s.Id).First(),
+                IdItem = ((ApplicationDbContext)this.context).Items.Where(i => i.TicketType == TicketType.MonthTicket).Select(s => s.Id).First(),
                 Price = monthTicket,
             });
             ((ApplicationDbContext)this.context).PricelistItems.Add(new PricelistItem()

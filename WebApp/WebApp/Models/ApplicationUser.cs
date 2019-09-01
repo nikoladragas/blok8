@@ -21,9 +21,8 @@ namespace WebApp.Models
         public string Address { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string Photo { get; set; }
-        public bool Activated { get; set; }
         public UserType UserType { get; set; }
-
+        public RequestType Activated { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

@@ -20,6 +20,8 @@ import { StationsComponent } from './components/stations/stations.component';
 import { LinesComponent } from './components/lines/lines.component';
 import { AdminPricelistComponent } from './components/admin-pricelist/admin-pricelist.component';
 import { AdminTimetableComponent } from './components/admin-timetable/admin-timetable.component';
+import { TicketValidatingComponent } from './components/ticket-validating/ticket-validating.component';
+import { UserValidatingComponent } from './components/user-validating/user-validating.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { AdminTimetableComponent } from './components/admin-timetable/admin-time
     LinesComponent,
     AdminPricelistComponent,
     AdminTimetableComponent,
+    TicketValidatingComponent,
+    UserValidatingComponent,
   ],
   imports: [
     BrowserModule,

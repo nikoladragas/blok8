@@ -19,3 +19,12 @@ export class Station{
     YCoordinate: number;
     Exist: boolean = false;
 }
+
+export class User{
+    Name: string;
+    Surname: string;
+    Address: string;
+    DateOfBirth: any;
+    Email: string;
+    UserType: string;
+}

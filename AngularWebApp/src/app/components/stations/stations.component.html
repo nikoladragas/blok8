@@ -9,7 +9,7 @@
             </div>
             <div class="form-label-group">
               <select name="selectedStation" class="form-control" (change)="onSelect($event)">
-                <option></option>
+                <option>Add Line</option>
                 <option  *ngFor="let s of stations" [value]="s.Id">{{s.Name}}</option>
               </select>
             </div>

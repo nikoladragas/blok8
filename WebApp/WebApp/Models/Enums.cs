@@ -18,7 +18,7 @@ namespace WebApp.Models
         {
             HourTicket = 0,
             DayTicket,
-            MounthTicket,
+            MonthTicket,
             YearTicket
         }
 
@@ -32,6 +32,13 @@ namespace WebApp.Models
         {
             City = 0,
             Suburban
+        }
+
+        public enum RequestType
+        {
+            InProcess = 0,
+            Activated,
+            Declined,
         }
     }
 }

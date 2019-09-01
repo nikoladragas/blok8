@@ -58,6 +58,10 @@ export class AuthenticationService {
     localStorage.clear();
   }
 
+  validateUser(email: any, validate: boolean): Observable<any>{//
+    return this.httpClient.post<any>(`http://localhost:52295/api/Account/ValidateUser?email=${email}&validate=${validate}`, [email, validate]);
+  }
+
   // getVehicleTypes() : Observable<any> {
   //   return this.getVehicleTypes1();
   // }

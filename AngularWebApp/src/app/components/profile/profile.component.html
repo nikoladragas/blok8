@@ -8,7 +8,6 @@
             <div class="card-body">
               <h5 class="card-title text-center">Profile info</h5>
               <form class="form-signin" [formGroup]="profileForm" (ngSubmit)="edit()">
-                
                 <div class="form-label-group">
                   <input type="text" class="form-control" placeholder="{{firstName}}" formControlName="name">
                   <label>First Name</label>
@@ -27,27 +26,19 @@
                     <label>Address</label>
                 </div>
                 <div class="form-label-group">
-                    <input type="date" class="form-control" placeholder="Enter Date Of Birth" formControlName="dateOfBirth">
+                    <input type="date" class="form-control"  formControlName="dateOfBirth">
                     <label>Date Of Birth</label>
                 </div>
+                <label>{{userType}}</label>
                 <hr>
-                <div *ngIf="userType == 'Student'" class="form-label-group">
-                    <div class="input-group">
-                        <div class="custom-file">
-                          <input name="image" type="file" accept="image/*" class="custom-file-input" formControlName="photo">
-                          <label class="custom-file-label">Choose file</label>
+                <div *ngIf="this.profileForm.controls.userType.value == 1 || this.profileForm.controls.userType.value == 2" class="form-label-group">
+                    <div >
+                        <div >
+                          <input formControlName="photo" type="file" accept="image/*"  (change)="onImageChange($event)">
+                          <label>{{userType}}</label>
                         </div>
                     </div>
                 </div>       
-                <div *ngIf="userType == 'Pensioner'" class="form-label-group">
-                    <div class="input-group">
-                        <div class="custom-file">
-                          <input name="image" type="file" accept="image/*" class="custom-file-input" formControlName="photo">
-                          <label class="custom-file-label">Choose file</label>
-                        </div>
-                    </div>
-                </div>
-  
                 <div>
                     <button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Edit</button>
                 </div>

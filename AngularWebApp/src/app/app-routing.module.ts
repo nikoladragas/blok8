@@ -12,6 +12,12 @@ import { AdminPricelistComponent } from './components/admin-pricelist/admin-pric
 import { AdminTimetableComponent } from './components/admin-timetable/admin-timetable.component';
 import { TicketValidatingComponent } from './components/ticket-validating/ticket-validating.component';
 import {UserValidatingComponent } from './components/user-validating/user-validating.component';
+import { AdminGuardGuard } from './guards/admin-guard.guard';
+import { ControllerGuardGuard } from './guards/controller-guard.guard';
+import { UserGuardGuard } from './guards/user-guard.guard';
+import { VisitorGuardGuard } from './guards/visitor-guard.guard';
+import { MapComponent } from './components/map/map.component';
+
 
 const routes: Routes = [{
   path: '',
@@ -24,11 +30,13 @@ const routes: Routes = [{
 },
 {
   path: 'pricelist',
-  component: PricelistComponent
+  component: PricelistComponent,
+  canActivate: [UserGuardGuard]
 },
 {
   path: 'buy-a-ticket',
-  component: BuyATicketComponent
+  component: BuyATicketComponent,
+  canActivate: [UserGuardGuard]
 },
 {
   path: 'register',
@@ -36,35 +44,47 @@ const routes: Routes = [{
 },
 {
   path: 'timetable',
-  component: TimetableComponent
+  component: TimetableComponent,
+  canActivate: [UserGuardGuard]
 },
 {
   path: 'profile',
-  component: ProfileComponent
+  component: ProfileComponent,
+  canActivate: [VisitorGuardGuard]
 },
 {
   path: 'stations',
-  component: StationsComponent
+  component: StationsComponent,
+  canActivate: [AdminGuardGuard]
 },
 {
   path: 'lines',
-  component: LinesComponent
+  component: LinesComponent,
+  canActivate: [AdminGuardGuard]
 },
 {
   path: 'admin-pricelist',
-  component: AdminPricelistComponent
+  component: AdminPricelistComponent,
+  canActivate: [AdminGuardGuard]
 },
 {
   path: 'admin-timetable',
-  component: AdminTimetableComponent
+  component: AdminTimetableComponent,
+  canActivate: [AdminGuardGuard]
 },
 {
   path: 'ticket-validating',
-  component: TicketValidatingComponent
+  component: TicketValidatingComponent,
+  canActivate: [ControllerGuardGuard]
 },
 {
   path: 'user-validating',
-  component: UserValidatingComponent
+  component: UserValidatingComponent,
+  canActivate: [ControllerGuardGuard]
+},
+{
+  path: 'map',
+  component: MapComponent
 }
 ];
 

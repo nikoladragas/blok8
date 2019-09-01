@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,8 @@ import { AdminPricelistComponent } from './components/admin-pricelist/admin-pric
 import { AdminTimetableComponent } from './components/admin-timetable/admin-timetable.component';
 import { TicketValidatingComponent } from './components/ticket-validating/ticket-validating.component';
 import { UserValidatingComponent } from './components/user-validating/user-validating.component';
+import { MapComponent } from './components/map/map.component';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { UserValidatingComponent } from './components/user-validating/user-valid
     AdminTimetableComponent,
     TicketValidatingComponent,
     UserValidatingComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,9 @@ import { UserValidatingComponent } from './components/user-validating/user-valid
     ReactiveFormsModule,
     HttpClientModule,
     HttpModule, 
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'
+   })
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]

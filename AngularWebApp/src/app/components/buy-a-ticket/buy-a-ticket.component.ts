@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService} from 'src/app/services/user/user.service';
 import { TicketService} from 'src/app/services/ticket/ticket.service';
+import { Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-buy-a-ticket',
@@ -18,10 +19,16 @@ export class BuyATicketComponent implements OnInit {
   userType: any;
   email: any;
 
-  constructor(private userService: UserService, private ticketService: TicketService) { }
+  emailForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    
+  });
+
+  constructor(private userService: UserService, private ticketService: TicketService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.loggedIn = localStorage['role'];
+    this.email = localStorage['name'];
     this.ticketType = "HourTicket";
     this.getUser();
     //this.ticketService.getPrice(this.ticketType, this.userType).subscribe( tmp => this.price = tmp);
@@ -57,6 +64,10 @@ export class BuyATicketComponent implements OnInit {
   } 
 
   buyTicket() {
+    if(this.emailForm.controls.email.value != '')
+    {
+      this.email = this.emailForm.controls.email.value;
+    }
     this.ticketService.buyTicket(this.price, this.ticketType, localStorage.getItem('name'), this.email).subscribe(tmp => this.addTicket = tmp);
     window.alert("Your ticket is bought!");
   }

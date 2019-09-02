@@ -11,6 +11,7 @@ namespace WebApp.Models
         public int Id { get; set; }
 
         public string Departures { get; set; }
+        public long Version { get; set; }
 
         [ForeignKey("Line")]
         public int IdLine { get; set; }

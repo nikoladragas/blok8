@@ -25,11 +25,11 @@ export class AuthenticationService {
 
     if(!localStorage.jwt){
       this.isLoggedIn = true;
-      console.log(this.isLoggedIn);
+      //console.log(this.isLoggedIn);
       return this.httpClient.post(this.base_url+"/oauth/token",data,{"headers":headers}) as Observable<any>
     }
     else{
-     // window.location.href = "/home";
+      window.location.href = "/login";
      console.log("ovde")
     }
   

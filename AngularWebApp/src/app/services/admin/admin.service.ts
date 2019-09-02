@@ -55,8 +55,8 @@ export class AdminService {
     return this.httpClient.delete<any>(this.base_url + `/api/Lines/Delete?id=${id}`);
   }
 
-  editPricelist(id: any, hour: any, day: any, month: any, year: any): Observable<any>{
-    return this.httpClient.post<any>(this.base_url + `/api/Pricelist/EditPricelist?id=${id}&hourTicket=${hour}&dayTicket=${day}&monthTicket=${month}&yearTicket=${year}`, [id, hour, day, month, year]);
+  editPricelist(id: any, hour: any, day: any, month: any, year: any, pricelistVersion: number): Observable<any>{
+    return this.httpClient.post<any>(this.base_url + `/api/Pricelist/EditPricelist?id=${id}&hourTicket=${hour}&dayTicket=${day}&monthTicket=${month}&yearTicket=${year}&pricelistVersion=${pricelistVersion}`, [id, hour, day, month, year, pricelistVersion]);
   }
 
   addPricelist(to: any, hour: any, day: any, month: any, year: any): Observable<any>{
@@ -67,8 +67,8 @@ export class AdminService {
     return this.httpClient.delete<any>(this.base_url+`/api/Timetables/Delete?departureId=${departureId}`);
   }
 
-  editDeparture(departureId: any, selectedDeparture: any): Observable<any>{
-    return this.httpClient.post<any>(this.base_url+`/api/Timetables/EditDeparture?departureId=${departureId}&selectedDeparture=${selectedDeparture}`, [departureId, selectedDeparture]);
+  editDeparture(departureId: any, selectedDeparture: any, scheduleVersion: number): Observable<any>{
+    return this.httpClient.post<any>(this.base_url+`/api/Timetables/EditDeparture?departureId=${departureId}&selectedDeparture=${selectedDeparture}&scheduleVersion=${scheduleVersion}`, [departureId, selectedDeparture, scheduleVersion]);
   }
 
   addDepartures(idLine: any, dayType: any, departures: any): Observable<any>{

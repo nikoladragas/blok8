@@ -32,13 +32,13 @@
               <div class="form-label-group">
                 <label>Date of birth:</label>
                 <input name="date" type="date" class="form-control" disabled formControlName="dateOfBirth">
-              </div>
+              </div><br>
               <div>
                   <img *ngIf="photo" [src]="photo" #imageControl style="width: 315px; height: 300px;">
-              </div>
+              </div><br>
               <div >
                   <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="validate()">Validate</button>
-                </div>
+                </div><br>
                 <div >
                     <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deny()">Deny</button>
                   </div>

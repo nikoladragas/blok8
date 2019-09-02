@@ -12,6 +12,9 @@ import { Line, Departure} from 'src/app/models/models'
 export class TimetableComponent implements OnInit {
 
   ngOnInit() {
+    this.timetableForm.controls.dayType.setValue('Weekday');
+    this.timetableForm.controls.lineType.setValue('City');
+    this.getLines();
   }
 
   constructor(private timetableService : TimetableService , public router: Router, private fb: FormBuilder) { }
@@ -29,7 +32,7 @@ export class TimetableComponent implements OnInit {
     lineName: [''],
   });
 
-  getLines(event : any)
+  getLines()
   {    
     this.selectedDayType = this.timetableForm.controls.dayType.value;
     this.selectedLineType = this.timetableForm.controls.lineType.value;

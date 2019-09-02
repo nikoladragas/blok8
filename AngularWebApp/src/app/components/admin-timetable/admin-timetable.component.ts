@@ -20,6 +20,7 @@ export class AdminTimetableComponent implements OnInit {
   i: any;
   selectedDeparture: any = '';
   selectedDepartureId: any;
+  timetableVersion: number;
 
   useForm = this.formBuilder.group({
     selectedDeparture : ['', Validators.required],
@@ -70,15 +71,26 @@ export class AdminTimetableComponent implements OnInit {
       if(this.departures[this.i].Id == event.target.value){
         this.selectedDeparture = this.departures[this.i].Departures;
         this.useForm.controls.useDeparture.setValue(this.departures[this.i].Departures);
+        this.timetableVersion = this.departures[this.i].Version;
+        console.log(this.timetableVersion);
       }
     }
   }
 
   onClickEdit(){
-    this.adminService.editDeparture(this.selectedDepartureId, this.useForm.controls.useDeparture.value).subscribe(
+    this.adminService.editDeparture(this.selectedDepartureId, this.useForm.controls.useDeparture.value, this.timetableVersion).subscribe(
       data =>{
-        this.getDepartures();
-        this.useForm.reset();
+        if(data == 200){
+          this.getDepartures();
+          this.useForm.reset();
+        }
+        else if(data == 203)
+        {
+          window.alert('Other admin already deleted this departure. Refresh page.');
+        }
+        else{
+          window.alert('Other admin already edited this departure. Refresh page.');
+        }
       }
     );
   }
@@ -86,8 +98,12 @@ export class AdminTimetableComponent implements OnInit {
   onClickDelete(){
     this.adminService.deleteDeparture(this.selectedDepartureId).subscribe(
       data =>{
-        this.getDepartures();
-        this.useForm.reset();
+        if(data == 200){
+          this.getDepartures();
+          this.useForm.reset();
+        }
+        else
+          window.alert('Other admin already deleted this!');
       }
     );
   }

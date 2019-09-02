@@ -29,6 +29,7 @@ export class AdminPricelistComponent implements OnInit {
   });
 
   pricelistId: any;
+  pricelistVersion: number;
 
   constructor(private formBuilder: FormBuilder, private adminService: AdminService, private ticketService: TicketService) { }
 
@@ -46,17 +47,29 @@ export class AdminPricelistComponent implements OnInit {
       this.editPricelistForm.controls.to.setValue(data[13]);
 
       this.pricelistId = data[14];
+      this.pricelistVersion = data[15];
 
       console.log(data);
     } );
   }
   
   editPricelist(){
-    this.adminService.editPricelist(this.pricelistId, this.editPricelistForm.controls.hour.value, this.editPricelistForm.controls.day.value, this.editPricelistForm.controls.month.value, this.editPricelistForm.controls.year.value).subscribe(
+    this.adminService.editPricelist(this.pricelistId, this.editPricelistForm.controls.hour.value, this.editPricelistForm.controls.day.value, this.editPricelistForm.controls.month.value, this.editPricelistForm.controls.year.value, this.pricelistVersion).subscribe(
       data => 
       {
-        this.getPrices();
-        window.alert('Pricelist edited.');
+        if(data == 200)
+        {
+          this.getPrices();
+          window.alert('Pricelist edited.');
+        }
+       else if(data == 203)
+       {
+        window.alert('Other admin already deleted this pricelist. Refresh page.');
+       }
+       else
+       {
+        window.alert('Other admin already edited this departure. Refresh page.');
+       }
       }
     );
   }

@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class RegisterComponent implements OnInit {
 
   emailTaken: any;
-  userType: any;
+  userType: any = 'RegularUser';
   photoFile: any;
   constructor(public router: Router, private fb: FormBuilder, private authService: AuthenticationService, private userService: UserService) { }
 
@@ -21,13 +21,14 @@ export class RegisterComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     address: ['', Validators.required],
     dateOfBirth: ['', Validators.required],
-    userType: ['', Validators.required],
+    userType: ['RegularUser', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
     photo: [''],
   }, {validator: this.checkPassword});
 
   ngOnInit() {
+    console.log(this.regForm.valid);
   }
 
   onSelect(event : any)

@@ -9,39 +9,43 @@
               <h5 class="card-title text-center">Profile info</h5>
               <form class="form-signin" [formGroup]="profileForm" (ngSubmit)="edit()">
                 <div class="form-label-group">
-                  <input type="text" class="form-control" placeholder="{{firstName}}" formControlName="name">
                   <label>First Name</label>
+                  <input type="text" class="form-control" required placeholder="{{firstName}}" formControlName="name">
                 </div>
                 <div class="form-label-group">
-                    <input type="text" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
                     <label>Last Name</label>
+                    <input type="text" class="form-control" required placeholder="Enter Last Name" formControlName="lastName">
                 </div>
   
                 <div class="form-label-group">
-                  <input type="email" class="form-control" placeholder="Email address" formControlName="email">
                   <label>Email address</label>
+                  <input type="email" class="form-control" required placeholder="Email address" formControlName="email">
                 </div>
                 <div class="form-label-group">
-                    <input type="text" class="form-control" placeholder="Enter address" formControlName="address">
                     <label>Address</label>
+                    <input type="text" class="form-control" required placeholder="Enter address" formControlName="address">
                 </div>
                 <div class="form-label-group">
-                    <input type="date" class="form-control"  formControlName="dateOfBirth">
                     <label>Date Of Birth</label>
+                    <input type="date" class="form-control" required formControlName="dateOfBirth">
                 </div>
-                <label>{{userType}}</label>
                 <hr>
                 <div *ngIf="this.profileForm.controls.userType.value == 1 || this.profileForm.controls.userType.value == 2" class="form-label-group">
-                    <div >
-                        <div >
+                    <div>
+                        <div>
                           <input formControlName="photo" type="file" accept="image/*"  (change)="onImageChange($event)">
-                          <label>{{userType}}</label>
                         </div>
                     </div>
-                </div>       
-                <div>
+                </div> 
+                <div><br></div>      
+                
+                <div *ngIf="profileForm.valid">
                     <button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Edit</button>
-                </div>
+                  </div>
+                  <div *ngIf="!profileForm.valid">
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" disabled >Edit</button>
+                  </div>
+                <br>
                 <div *ngIf="userRole == 'AppUser'">
                     <a class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deleter()">Delete</a>
                   </div>

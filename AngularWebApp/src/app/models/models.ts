@@ -9,6 +9,7 @@ export class Departure{
     Departures: string;
     IdLine: number;
     IdTimetableActive: number;
+    Version: number;
 }
 
 export class Station{

@@ -90,9 +90,12 @@ namespace WebApp.Controllers
             };
 
             if (param[2] != null)
+            {
                 ticket.IdApplicationUser = UnitOfWork.PricelistRepository.getIdByEmail(param[2]);
-            else
+            }
+            if(param[3] != null)
                 EmailSender.SendEmail(param[3], "Buying Ticket", "You have successfully bought a ticket with ID: " + ticket.Id);
+            //else
             
 
             UnitOfWork.TicketRepository.Add(ticket);

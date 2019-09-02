@@ -1,67 +1,66 @@
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-xl-9 mx-auto">
-        <div class="card card-signin flex-row my-5">
-          <div class="card-img-left d-none d-md-flex">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title text-center">Register</h5>
-            <form class="form-signin" [formGroup]="regForm" (ngSubmit)="register()">
-              <div class="form-label-group">
-                <input type="text" class="form-control" placeholder="Enter First Name" formControlName="name" autofocus>
-                <label>First Name</label>
-              </div>
-              <div class="form-label-group">
-                  <input type="text" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
-                  <label>Last Name</label>
-              </div>
 
-              <div class="form-label-group">
-                <input type="email" class="form-control" placeholder="Email address" formControlName="email">
-                <label>Email address</label>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Register</h5>
+          <form class="form-signin" [formGroup]="regForm" (ngSubmit)="register()">
+            <div class="form-label-group">
+              <label>First Name</label>
+              <input type="text" class="form-control" required placeholder="Enter First Name" formControlName="name" autofocus>
+            </div>
+            <div class="form-label-group">
+              <label>Last Name</label>
+              <input type="text" class="form-control" required placeholder="Enter Last Name" formControlName="lastName">
+            </div>
+            <div class="form-label-group">
+              <label>Email address</label>
+              <input type="email" class="form-control" required placeholder="Email address" formControlName="email">
+            </div>
+            <div class="form-label-group">
+              <label>Address</label>
+              <input type="text" class="form-control" required placeholder="Enter address" formControlName="address">
+            </div>
+            <div class="form-label-group">
+              <label>Date Of Birth</label>
+              <input type="date" class="form-control" required placeholder="Enter Date Of Birth" formControlName="dateOfBirth">
+            </div>
+            <label>User Type</label>
+            <select class="form-control" formControlName="userType" required (change)="onSelect($event)">
+              <option>RegularUser</option>
+              <option>Student</option>
+              <option>Retired</option>
+            </select>
+            <hr>
+            <div *ngIf="userType=='Student' || userType=='Retired'" class="form-label-group">
+              <div class="input-group">
+                <div class="custom-file">
+                  <input name="photo" type="file" accept="image/*"  class="custom-file-input" (change)="onImageChange($event)" formControlName="photo">
+                  <label class="custom-file-label">Choose file</label>
+                </div>
               </div>
-              <div class="form-label-group">
-                  <input type="text" class="form-control" placeholder="Enter address" formControlName="address">
-                  <label>Address</label>
+            </div>       
+            <div class="form-label-group">
+              <label>Password</label>
+              <input type="password" class="form-control" required placeholder="Enter Password" formControlName="password">
+            </div>
+            <div class="form-label-group">
+              <label >Confirm Password</label>
+              <input type="password" class="form-control" required placeholder="ConfirmPassword" formControlName="confirmPassword">
+            </div><br>
+            <div *ngIf="regForm.valid">
+                <button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Register</button>
               </div>
-              <div class="form-label-group">
-                  <input type="date" class="form-control" placeholder="Enter Date Of Birth" formControlName="dateOfBirth">
-                  <label>Date Of Birth</label>
+              <div *ngIf="!regForm.valid">
+                <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" disabled >Register</button>
               </div>
-              <select class="form-control" formControlName="userType" (change)="onSelect($event)">
-                  <option>RegularUser</option>
-                  <option>Student</option>
-                  <option>Retired</option>
-              </select>
-              <label>User Type</label>
-              <hr>
-              <div *ngIf="userType=='Student' || userType=='Retired'" class="form-label-group">
-                  <div class="input-group">
-                      <div class="custom-file">
-                        <input name="photo" type="file" accept="image/*" class="custom-file-input" (change)="onImageChange($event)" formControlName="photo">
-                        <label class="custom-file-label">Choose file</label>
-                      </div>
-                  </div>
-              </div>       
-              
-
-              <div class="form-label-group">
-                <input type="password" class="form-control" placeholder="Enter Password" formControlName="password">
-                <label>Password</label>
-              </div>
-              
-              <div class="form-label-group">
-                <input type="password" class="form-control" placeholder="ConfirmPassword" formControlName="confirmPassword">
-                <label >Confirm Password</label>
-              </div>
-
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
-              <hr class="my-4">
-            </form>
-          </div>
+            <hr class="my-4">
+          </form>
         </div>
       </div>
     </div>
   </div>
-</body>
+</div>
+
+

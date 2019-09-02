@@ -11,5 +11,6 @@ namespace WebApp.Models
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }
         public bool Active { get; set; }
+        public long Version { get; set; }
     }
 }

@@ -70,13 +70,14 @@ namespace WebApp.Persistence.Repository
             ret[10] = Math.Round(ret[2] * coef[2]);
             ret[11] = Math.Round(ret[3] * coef[2]);
 
-            string[] ret2 = new string[15];
+            string[] ret2 = new string[16];
             for (int i = 0; i < 12; i++)
                 ret2[i] = ret[i].ToString();
 
             ret2[12] = ((ApplicationDbContext)this.context).Pricelists.Where(c => c.Active == true).Select(f => f.From).First().ToString();
             ret2[13] = ((ApplicationDbContext)this.context).Pricelists.Where(c => c.Active == true).Select(f => f.To).First().ToString();
             ret2[14] = pricelistId.ToString();
+            ret2[15] = ((ApplicationDbContext)this.context).Pricelists.Where(c => c.Active == true).First().Version.ToString();
 
             return ret2;
         }

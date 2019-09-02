@@ -51,9 +51,16 @@ namespace WebApp.Persistence.Repository
             }
         }
 
-        public void editDeparture(int departureId, string departure)
+        public bool editDeparture(int departureId, string departure, long scheduleVersion)
         {
-            ((ApplicationDbContext)this.context).Timetables.Where(t => t.Id == departureId).First().Departures = departure;
+            if (((ApplicationDbContext)this.context).Timetables.Where(t => t.Id == departureId).First().Version == scheduleVersion)
+            {
+                ((ApplicationDbContext)this.context).Timetables.Where(t => t.Id == departureId).First().Departures = departure;
+                ((ApplicationDbContext)this.context).Timetables.Where(t => t.Id == departureId).First().Version++;
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

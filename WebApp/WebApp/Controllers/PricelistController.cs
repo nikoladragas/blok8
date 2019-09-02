@@ -18,7 +18,7 @@ namespace WebApp.Controllers
     [RoutePrefix("api/Pricelist")]
     public class PricelistsController : ApiController
     {
-        //private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         private readonly IUnitOfWork UnitOfWork;
         private ApplicationUserManager _userManager;
@@ -122,17 +122,29 @@ namespace WebApp.Controllers
         // POST: api/Pricelists
         [Route("EditPricelist")]
         [ResponseType(typeof(Pricelist))]
-        public IHttpActionResult EditPricelist(int id, double hourTicket, double dayTicket, double monthTicket, double yearTicket)
+        public IHttpActionResult EditPricelist(int id, double hourTicket, double dayTicket, double monthTicket, double yearTicket, long pricelistVersion)
         {
+
+            Pricelist pricelist = db.Pricelists.Find(id);
+
+            if (pricelist == null)
+            {
+                return Ok(203);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            UnitOfWork.PricelistRepository.editPricelist(id, hourTicket, dayTicket, monthTicket, yearTicket);
-            UnitOfWork.PricelistRepository.SaveChanges();
+            if (UnitOfWork.PricelistRepository.editPricelist(id, hourTicket, dayTicket, monthTicket, yearTicket, pricelistVersion))
+            {
+                UnitOfWork.PricelistRepository.SaveChanges();
+                return Ok(200);
+            }
+            else
+                return Ok(204);
 
-            return Ok(id);
         }
 
         // POST: api/Pricelists

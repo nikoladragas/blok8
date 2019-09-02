@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
     if(this.imageFile != null){
       formData.append('image', this.imageFile, this.imageFile.name);
       formData.append('email', this.profileForm.controls.email.value);
-      this.profileForm.controls.activated.setValue('0');
+      //this.profileForm.controls.activated.setValue('0');
       
     }
 

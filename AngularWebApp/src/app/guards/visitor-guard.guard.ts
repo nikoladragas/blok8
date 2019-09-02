@@ -9,7 +9,7 @@ export class VisitorGuardGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {    
-    if (localStorage.role != 'Controller' && localStorage.role != 'Admin' && localStorage.role != 'AppUser') {
+    if (localStorage.role == 'Controller' || localStorage.role == 'Admin' || localStorage.role == 'AppUser') {
       return true;
     }
     else {

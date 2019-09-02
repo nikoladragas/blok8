@@ -26,7 +26,7 @@
               <form class="form-signin" [formGroup]="lineForm">
                   <div class="form-label-group">
                     <input name="name" type="text" class="form-control" placeholder="Name" formControlName="name">
-                  </div>
+                  </div><br>
                   <div class="form-label-group">
                       <select formControlName="type"  class="form-control">
                         <option value='0'>City</option>
@@ -35,16 +35,17 @@
                     </div><br>
                   <div *ngFor="let s of stations">
                     <input type="checkbox" isChecked [checked]="s.Exist" value="s.Id" (change)="checkValue($event, s.Id)">{{s.Name}}
-                  </div>
+                  <br>
+                  </div><br>
                   <div>
                     <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="addLine()">Add Line</button>
-                  </div>
+                  </div><br>
                   <div>
                     <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deleteLine()">Delete Line</button>
-                  </div>
+                  </div><br>
                   <div>
                       <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="editLine()">Edit Line</button>
-                  </div>
+                  </div><br>
               </form>
             </div>
           </div>

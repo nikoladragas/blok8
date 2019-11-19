@@ -1,56 +1,88 @@
+<body><br><br><br>
 <div class="container">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
         <div class="card-body">
-          <div>
-              <label>Lines: </label>
-          </div>
-          <div class="form-label-group">
-            <select name="selectedLine" class="form-control" (change)="onSelectLine($event)">
-              <option></option>
-              <option  *ngFor="let l of lines" [value]="l.Id">{{l.LineName}}</option>
-            </select>
-          </div>
-          <div>
-            <label>Day type: </label>
-          </div>
-          <div class="form-label-group">
-            <select name="selectedDay" class="form-control" (change)="onSelectDay($event)">
-              <option selected='selected' value='0'>Workday</option>
-              <option value='1'>Weekend</option>
-            </select>
-          </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <label>Lines: </label>
+                  <div class="form-label-group">
+                    <select name="selectedLine" id="selectLabel" class="form-control" (change)="onSelectLine($event)">
+                      <option>Choose line</option>
+                      <option  *ngFor="let l of lines" [value]="l.Id">{{l.LineName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Day type: </label>
+                  <div class="form-label-group">
+                    <select name="selectedDay" id="selectLabel" class="form-control" (change)="onSelectDay($event)">
+                      <option selected='selected' value='0'>Workday</option>
+                      <option value='1'>Weekend</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+          
+          
           <div class="d-flex align-items-start flex-column flex-wrap" style="height: 120px;">
             <li *ngFor="let d of departures">
               {{d.Departures}}
             </li><br>
-          </div>
-          <form class="form-signin" [formGroup]="useForm">
-          <select name="selectedDeparture" formControlName="selectedDeparture" class="form-control" (change)="onSelectDeparture($event)">
-              <option></option>
-              <option  *ngFor="let d of departures" [value]="d.Id">{{d.Departures}}</option>
-          </select>
-          <br>
-            <input [value]="selectedDeparture" name="useDeparture" formControlName="useDeparture" name="departure" type="text" class="form-control">
-          <br>
-          <div>
-            <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase active" (click)="onClickEdit()">Edit</button>
           </div><br>
-          <div >
-            <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase active" (click)="onClickDelete()">Delete</button>
-          </div>
-          <label>Departures: </label>
-            <input formControlName="addDeparture"  type="text" class="form-control">
+          <form class="form-signin" [formGroup]="useForm">
+              <div class="row">
+                  <div class="col-md-6">
+                    <label>Choose departure:</label>
+                    <select disabled *ngIf="selectedLineId == 'Choose line'; else second_block" id="selectLabel"  class="form-control" >
+                        <option  *ngFor="let d of departures" [value]="d.Id">{{d.Departures}}</option>
+                    </select>
+                    <ng-template #second_block>
+                      <select name="selectedDeparture" id="selectLabel" formControlName="selectedDeparture" class="form-control" (change)="onSelectDeparture($event)">
+                          <option  *ngFor="let d of departures" [value]="d.Id">{{d.Departures}}</option>
+                      </select>
+                    </ng-template>
+                  </div>
+                  <div class="col-md-6"><br>
+                      <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase" (click)="onClickDelete()">Delete</button>
+
+                    
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <label>Edit departure:</label>
+                    <div *ngIf="selectedDepartureId == ''; else other_block" class="form-label-group">
+                        <input disabled name="useDeparture" type="text" class="form-control">
+                      </div>
+                    <ng-template #other_block>
+                      <div class="form-label-group">
+                        <input [value]="selectedDeparture" name="useDeparture" formControlName="useDeparture" type="text" class="form-control">
+                      </div>
+                    </ng-template>
+                </div>
+                <div class="col-md-6"><br>
+                    <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase" (click)="onClickEdit()">Save</button>
+                </div>
+              </div>
             <br>
-            <div >
-                <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase active" (click)="onClickAdd()">Add</button>
-            </div>
+          <div class="row">
+              <div class="col-md-6">
+                <label>Departures: </label>
+                <div class="form-label-group">
+                  <input formControlName="addDeparture"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6"><br>
+                  <button class="btn btn-lg btn-primary  col-sm-9 col-md-7 col-lg-12 mx-auto text-uppercase" (click)="onClickAdd()">Add</button>
+              </div>
+          </div>
         </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+</body>
   

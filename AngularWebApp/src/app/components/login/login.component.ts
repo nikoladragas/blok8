@@ -20,12 +20,13 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router, private fb: FormBuilder, private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authService.logout();
   }
 
   login(){
     this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe(
       res => {
-        console.log(res  + 'GDEEEE');
+        //console.log(res  + 'GDEEEE');
         if(res.status != 400)
         {  console.log(res.access_token);
 
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('role', role)
           localStorage.setItem('name',a);
           //localStorage.setItem('password', temp);
-          window.location.href = "/pricelist"
+          window.location.href = "/profile"
         }
         else
         {

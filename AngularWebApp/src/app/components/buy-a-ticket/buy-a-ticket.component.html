@@ -1,28 +1,35 @@
+
+<body>
+    <br><br><br> 
 <div class="container">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
         <div class="card-body">
-          <select class="form-control" (change)="ticketTypeChanged($event)">
-            <option>HourTicket</option>
-            <option *ngIf="loggedIn">DayTicket</option>
-            <option *ngIf="loggedIn">MonthTicket</option>
-            <option *ngIf="loggedIn">YearTicket</option>
-          </select><br>
-          <label class="form-control">Price: {{price}} RSD</label><br>
           <form class="form-signin" [formGroup]="emailForm">
-            <div *ngIf="!loggedIn">
+              <select id="selectLabel" class="form-control" (change)="ticketTypeChanged($event)">
+                  <option value="HourTicket">Hour ticket</option>
+                  <option value="DayTicket" *ngIf="loggedIn">Day ticket</option>
+                  <option value="MonthTicket" *ngIf="loggedIn">Month ticket</option>
+                  <option value="YearTicket" *ngIf="loggedIn">Year ticket</option>
+                </select><br>
+                <label id="priceLabel" class="form-control">Price: {{price}} RSD</label><br>
+            <div *ngIf="!loggedIn" class="form-label-group">
                 <input formControlName="email" name="email" type="email" required class="form-control" placeholder="Email"  required>
             </div><br>
-          </form>
-          <div *ngIf="email==''">
-            <button  class="btn btn-lg btn-primary btn-block text-uppercase active" disabled >Buy Ticket</button>
-          </div>
-          <div *ngIf="email!=''">
-              <button  class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="buyTicket()">Buy Ticket</button>
+            
+            <div *ngIf="emailForm.controls.email.errors; else other_content" >
+              <div class="disabled">
+                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+              </div>
             </div>
+            <ng-template #other_content>
+              <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+            </ng-template>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+</body>

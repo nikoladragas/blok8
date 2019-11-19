@@ -16,7 +16,7 @@ export class LinesComponent implements OnInit {
     
   });
 
-  selectedLineId: any;
+  selectedLineId: any = 'Add line';
   lines: Line[] = [];
   stations: Station[] = [];
   selectedStations: Station[] = []; 

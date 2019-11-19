@@ -24,6 +24,7 @@ import { AdminTimetableComponent } from './components/admin-timetable/admin-time
 import { TicketValidatingComponent } from './components/ticket-validating/ticket-validating.component';
 import { UserValidatingComponent } from './components/user-validating/user-validating.component';
 import { MapComponent } from './components/map/map.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MapComponent } from './components/map/map.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpModule, 
+    HttpModule,
+    NgxPayPalModule, 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'
    })

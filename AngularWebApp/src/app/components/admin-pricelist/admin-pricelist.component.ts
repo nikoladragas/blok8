@@ -17,6 +17,7 @@ export class AdminPricelistComponent implements OnInit {
     day: ['', Validators.required],
     month: ['', Validators.required],
     year: ['', Validators.required],
+    radioButton: ['', Validators.required]
   });
   
   addPricelistForm = this.formBuilder.group({
@@ -30,11 +31,22 @@ export class AdminPricelistComponent implements OnInit {
 
   pricelistId: any;
   pricelistVersion: number;
+  radioButton: any = 'edit';
 
   constructor(private formBuilder: FormBuilder, private adminService: AdminService, private ticketService: TicketService) { }
 
   ngOnInit() {
     this.getPrices();
+  }
+
+  edit() {
+    this.radioButton = 'edit';
+    console.log(this.radioButton + 'promena');
+  }
+
+  add() {
+    this.radioButton = 'add';
+    console.log(this.radioButton + 'promena');
   }
 
   getPrices(){

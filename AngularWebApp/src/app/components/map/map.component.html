@@ -1,42 +1,62 @@
-<div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-    
-        <div>
-          <label class="form-label-group">Lines: </label>
-        </div>
-        <div class="form-label-group">
-          <select class="form-control" (change)="onSelectLine($event)">
-            <option  *ngFor="let l of lines" [value]="l.Id">{{l.LineName}}</option>
-          </select>
-        </div><br>
-          <div class="d-flex justify-content-center">
-            <agm-map *ngIf="markerInfo.location.longitude" [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" [zoom]="12" style="height: 500px; width: 1100px;">
-              <div>
-                <agm-marker *ngFor="let station of lineStations" [latitude]="station.XCoordinate" [longitude]="station.YCoordinate" [title]="station.name" [label]="" [iconUrl]="iconPath">
-                  <agm-info-window>
-                    Name: {{station.Name}}
-                    <br>
-                    Longitude: {{station.YCoordinate}}
-                    <br>
-                    Latitude: {{station.XCoordinate}}
-                    <br>
-                    Address: {{station.Address}}
-                  </agm-info-window>
-                </agm-marker>
+<body>
+    <br><br>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="card card-signin flex-row my-5">
+            <div *ngIf="loggedIn == 'Admin'" class="card-img-left d-none d-md-flex">
+               <!-- Background image for card set in CSS! <img  src="../../../favicon.ico"/> -->
+               <div >
+                <form class="form-signin" [formGroup]="stationForm">
+                    <div class="form-label-group">
+                      <input name="name" type="text" class="form-control" placeholder="Name" formControlName="name">
+                    </div>
+                    <div class="form-label-group">
+                      <input name="address" type="text" class="form-control" placeholder="Address" formControlName="address">
+                    </div>
+                    <div class="form-label-group">
+                      <input name="xCoordinate" type="text" class="form-control" placeholder="X Coordinate" formControlName="xCoordinate">
+                    </div>
+                    <div class="form-label-group">
+                      <input name="yCoordinate" type="text" class="form-control" placeholder="Y Coordinate" formControlName="yCoordinate">
+                    </div><br>
+                    <div>
+                      <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="addStation()">Add Station</button>
+                    </div><br>
+                </form>
               </div>
-              <div>
-                <agm-polyline  [strokeColor]="red">
-                  <agm-polyline-point *ngFor="let point of selectedLine.path" [latitude]="point.latitude" [longitude]="point.longitude">
-                  </agm-polyline-point>
-                </agm-polyline>
-              </div>
-            </agm-map>
-            <br>
+            </div>
+            <div class="card-body">
+                <label class="form-label-group">Lines: </label>
+                <div class="form-label-group">
+                  <select class="form-control" id="selectLabel"  (change)="onSelectLine($event)">
+                    <option  *ngFor="let l of lines" [value]="l.Id">{{l.LineName}}</option>
+                  </select>              
+                </div>
+                <agm-map *ngIf="markerInfo.location.longitude" (mapClick)="placeMarker($event)" [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" [zoom]="12" >
+                    <div>
+                      <agm-marker *ngFor="let station of lineStations" [latitude]="station.XCoordinate" [longitude]="station.YCoordinate" [title]="station.name" [label]="" [iconUrl]="iconPath">
+                        <agm-info-window>
+                          Name: {{station.Name}}
+                          <br>
+                          Longitude: {{station.YCoordinate}}
+                          <br>
+                          Latitude: {{station.XCoordinate}}
+                          <br>
+                          Address: {{station.Address}}
+                        </agm-info-window>
+                      </agm-marker>
+                    </div>
+                    <div>
+                      <agm-polyline  [strokeColor]="red">
+                        <agm-polyline-point *ngFor="let point of selectedLine.path" [latitude]="point.latitude" [longitude]="point.longitude">
+                        </agm-polyline-point>
+                      </agm-polyline>
+                    </div>
+                  </agm-map>
           </div>
-            
+        </div>
       </div>
     </div>
   </div>
-
-
+  </body>

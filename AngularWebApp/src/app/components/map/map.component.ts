@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { Line, Station, Polyline, GeoLocation, MarkerInfo } from 'src/app/models/models';
 import { AgmCoreModule } from '@agm/core';
+import { FormBuilder, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -11,7 +13,14 @@ import { AgmCoreModule } from '@agm/core';
 })
 export class MapComponent implements OnInit {
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private formBuilder: FormBuilder) { }
+
+  stationForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    address: ['', Validators.required],
+    xCoordinate: ['', Validators.required],
+    yCoordinate: ['', Validators.required],
+  });
 
   selectedLineId: any;
   lines: Line[] = [];
@@ -23,6 +32,7 @@ export class MapComponent implements OnInit {
   lineStations: Station[] = [];
   lineStationsIds: any[] = [];
   markerInfo: MarkerInfo;
+  loggedIn: any;
 
   ngOnInit() {
     this.markerInfo = new MarkerInfo(new GeoLocation(45.232268, 19.842954),
@@ -30,6 +40,7 @@ export class MapComponent implements OnInit {
     "Jugodrvo", "", "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
     this.selectedLine = new Polyline([], 'red', { url:"assets/busicon.png", scaledSize: {width: 50, height: 50}});
     this.getLines();
+    this.loggedIn = localStorage['role'];
   }
 
   getLines(){
@@ -68,9 +79,26 @@ export class MapComponent implements OnInit {
     );
   }
 
+addStation(){
+  console.log(this.stationForm.controls.name.value + '  ' + this.stationForm.controls.address.value + '  ' + this.stationForm.controls.xCoordinate.value + '  '  + this.stationForm.controls.yCoordinate.value);
+    this.adminService.addStation(this.stationForm.value).subscribe( data=>
+      {
+        window.alert('Station added!');
+        this.getStations();
+        this.stationForm.reset();
+      });
+}
+
   onSelectLine(event: any){
     this.selectedLineId = event.target.value;
     this.lineStations = [];
     this.getStations();
+  }
+
+  placeMarker($event){
+    console.log($event.coords.lat);
+    console.log($event.coords.lng);
+    this.stationForm.controls.xCoordinate.setValue($event.coords.lat);
+    this.stationForm.controls.yCoordinate.setValue($event.coords.lng);
   }
 }

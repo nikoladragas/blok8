@@ -1,3 +1,4 @@
+<body><br>
 <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -7,44 +8,53 @@
               <label class="label">Users pending approval: </label>
             </div>
             <div class="form-label-group">
-                <select name="selectedUser" class="form-control" (change)="onSelectUser($event)">
+                <select name="selectedUser" id="selectLabel" class="form-control" (change)="onSelectUser($event)">
                     <option *ngIf="users.length == 0">No pending reviews</option>
                     <option  *ngFor="let u of users" [value]="u.Email">{{u.Email}}</option>
                 </select>
             </div>
             <form class="form-signin" [formGroup]="userForm" >
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-label-group">
+                        <input id="info" name="name" type="text" class="form-control" disabled formControlName="name">
+                      </div>
+    
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-label-group">
+                        <input name="lastName" type="text" class="form-control" disabled formControlName="lastName">
+                      </div>
+                      
+                      </div>
+                  </div>
+              
               <div class="form-label-group">
-                <label>Name:</label>
-                <input name="name" type="text" class="form-control" disabled formControlName="name">
-              </div>
-              <div class="form-label-group">
-                <label>Last Name:</label>
-                <input name="lastName" type="text" class="form-control" disabled formControlName="lastName">
-              </div>
-              <div class="form-label-group">
-                <label>Email:</label>
-                <input name="email" type="email" class="form-control" disabled formControlName="email">
-              </div>
-              <div class="form-label-group">
-                <label>Address:</label>
                 <input name="address" type="text" class="form-control" disabled formControlName="address">
               </div>
               <div class="form-label-group">
-                <label>Date of birth:</label>
                 <input name="date" type="date" class="form-control" disabled formControlName="dateOfBirth">
               </div><br>
               <div>
-                  <img *ngIf="photo" [src]="photo" #imageControl style="width: 315px; height: 300px;">
+                  <img *ngIf="photo" [src]="photo" #imageControl style="width: 215px; height: 200px; margin-left: 5rem;">
               </div><br>
-              <div >
-                  <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="validate()">Validate</button>
-                </div><br>
-                <div >
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deny()">Deny</button>
+              <div class="row">
+                  <div class="col-md-6">
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="validate()">Validate</button>
+                    
+  
                   </div>
+                  <div class="col-md-6">
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="deny()">Deny</button>
+                    
+                    
+                    </div>
+                </div>
+              
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+</body>

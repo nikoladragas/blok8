@@ -23,6 +23,7 @@ namespace WebApp.Persistence
         public DbSet<StationLine> StationLines { get; set; }
         public DbSet<Timetable> Timetables { get; set; }
 
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

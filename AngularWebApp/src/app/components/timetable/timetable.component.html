@@ -1,44 +1,46 @@
+<body>
+<br><br><br>
 <div class="container">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
         <div class="card-body">
-          <form class="form-signin" [formGroup]="timetableForm"><br><br>
+          <form class="form-signin" [formGroup]="timetableForm"><br>
             <div class="form-label-group">
-              <select name="dayType" class="form-control"  formControlName="dayType" >
+              <select id="selectLabel" name="dayType" class="form-control"  formControlName="dayType" >
                 <option>Weekday</option>
                 <option>Weekend</option>
               </select><br>
                 
-                <select name="lineType" class="form-control" (change)="getLines()"  formControlName="lineType">
-                  <option>City</option>
-                  <option>Suburban</option>
-                </select><br>
+              <select name="lineType" id="selectLabel" class="form-control" (change)="getLines()"  formControlName="lineType">
+                <option>City</option>
+                <option>Suburban</option>
+              </select><br>
                           
-                <select name="lineName" class="form-control" required formControlName="lineName">
-                    <option></option>
-                  <option *ngFor="let line of Lines"> {{line.LineName}}</option>
-                </select><br>
-                <div *ngIf="timetableForm.controls.lineName.value">
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="getTimetable()" type="submit">Show</button>
-                  </div>
-                  <div *ngIf="!timetableForm.controls.lineName.value">
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" (click)="getTimetable()" disabled >Show</button>
-                  </div>
+              <select name="lineName" id="selectLabel" class="form-control" required formControlName="lineName">
+                <option *ngFor="let line of Lines"> {{line.LineName}}</option>
+              </select><br>
+              <div *ngIf="timetableForm.controls.lineName.value">
+                  <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="getTimetable()" type="submit">Show</button>
+              </div>
+              <div *ngIf="!timetableForm.controls.lineName.value">
+                <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" (click)="getTimetable()" disabled >Show</button>
+              </div>
                 <!--<button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Schedule</button>-->
-                <br>
-                
-                <li *ngFor="let item of Departures">
-                    {{item.Departures}}
-                </li>
-                
-              </div><br>   
+              <br>
+              
+              <li *ngFor="let item of Departures">
+                  {{item.Departures}}
+              </li>
+          </div>
         </form>
+        </div>
       </div>
     </div>
   </div>
-</div>  
-        
+</div> 
+</body> 
+ 
 
 
   

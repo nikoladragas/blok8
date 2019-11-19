@@ -19,7 +19,7 @@ export class StationsComponent implements OnInit {
   });
 
   stations : Station[] = [];
-  selectedStationId: any;
+  selectedStationId: any = 'Add station';
 
   constructor(private formBuilder: FormBuilder,private adminService: AdminService) { }
 
@@ -48,7 +48,7 @@ export class StationsComponent implements OnInit {
     this.adminService.editStation(this.stationForm.value, this.selectedStationId).subscribe(
       data=>{
         this.getStations();
-        window.alert("Successfully edited station with ID: " + this.selectedStationId);
+        window.alert("Successfully edited station ");
         this.stationForm.reset();
       }
     );
@@ -59,7 +59,7 @@ export class StationsComponent implements OnInit {
     this.adminService.deleteStation(this.selectedStationId).subscribe(
       d=>{
         this.getStations();
-        window.alert("Successfully deleted station with ID: " + this.selectedStationId);
+        window.alert("Successfully deleted station ");
         this.selectedStationId = "";
         this.stationForm.reset();
       }
@@ -70,7 +70,7 @@ export class StationsComponent implements OnInit {
     console.log(this.stationForm.controls.name.value + '  ' + this.stationForm.controls.address.value + '  ' + this.stationForm.controls.xCoordinate.value + '  '  + this.stationForm.controls.yCoordinate.value);
     this.adminService.addStation(this.stationForm.value).subscribe( data=>
       {
-        window.alert('Station with ID: ' + data.Id + ' added!');
+        window.alert('Station added!');
         this.getStations();
         this.stationForm.reset();
       });

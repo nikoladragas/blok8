@@ -1,32 +1,37 @@
-<body>
+<body><br><br>
     <div class="container">
       <div class="row">
-        <div class="col-lg-10 col-xl-9 mx-auto">
-          <div class="card card-signin flex-row my-5">
-            <div class="card-img-left d-none d-md-flex">
-            </div>
-            <div class="card-body">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card card-signin my-5">
+                <div class="card-body">
+            
               <h5 class="card-title text-center">Profile info</h5>
               <form class="form-signin" [formGroup]="profileForm" (ngSubmit)="edit()">
-                <div class="form-label-group">
-                  <label>First Name</label>
-                  <input type="text" class="form-control" required placeholder="{{firstName}}" formControlName="name">
-                </div>
-                <div class="form-label-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control" required placeholder="Enter Last Name" formControlName="lastName">
-                </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                        <label>First name:</label>
+                        <div class="form-label-group">
+                          <input type="text" class="form-control" required placeholder="Enter your first name" formControlName="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Last name:</label>
+                        <div class="form-label-group">
+                            <input type="text" class="form-control" required placeholder="Enter your last name" formControlName="lastName">
+                        </div>
+                      </div>
+                    </div>
   
+                <label>Email address:</label>
                 <div class="form-label-group">
-                  <label>Email address</label>
-                  <input type="email" class="form-control" required placeholder="Email address" formControlName="email">
+                  <input type="email" class="form-control" required placeholder="Enter your email address" formControlName="email">
                 </div>
+                <label>Address:</label>
                 <div class="form-label-group">
-                    <label>Address</label>
-                    <input type="text" class="form-control" required placeholder="Enter address" formControlName="address">
+                    <input type="text" class="form-control" required placeholder="Enter your address" formControlName="address">
                 </div>
+                <label>Date of birth:</label>
                 <div class="form-label-group">
-                    <label>Date Of Birth</label>
                     <input type="date" class="form-control" required formControlName="dateOfBirth">
                 </div>
                 <hr>
@@ -40,16 +45,15 @@
                 <div><br></div>      
                 
                 <div *ngIf="profileForm.valid">
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Edit</button>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Save</button>
                   </div>
                   <div *ngIf="!profileForm.valid">
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" disabled >Edit</button>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" disabled >Save</button>
                   </div>
                 <br>
                 <div *ngIf="userRole == 'AppUser'">
                     <a class="btn btn-lg btn-primary btn-block text-uppercase active" (click)="deleter()">Delete</a>
                   </div>
-                <hr class="my-4">
               </form>
             </div>
           </div>

@@ -32,6 +32,8 @@ export class AdminTimetableComponent implements OnInit {
 
   ngOnInit() {
     this.getLines();
+    this.selectedLineId = "Choose line";
+    this.selectedDepartureId = '';
   }
 
   getLines(){
@@ -41,13 +43,21 @@ export class AdminTimetableComponent implements OnInit {
 
   onSelectLine(event: any){
     this.selectedLineId = event.target.value;
-    for(this.i = 0; this.i < this.lines.length; this.i++){
-      if(this.lines[this.i].Id == event.target.value){
-        this.selectedLineType = this.lines[this.i].LineType;
-        this.selectedLineName = this.lines[this.i].LineName;
-      }
+    if(this.selectedLineId == "Choose line")
+    {
+      this.departures = [];
+      this.useForm.reset();
     }
-    this.getDepartures();
+    else
+    {
+      for(this.i = 0; this.i < this.lines.length; this.i++){
+        if(this.lines[this.i].Id == event.target.value){
+          this.selectedLineType = this.lines[this.i].LineType;
+          this.selectedLineName = this.lines[this.i].LineName;
+        }
+      }
+      this.getDepartures();
+    }
   }
 
   onSelectDay(event: any){
@@ -83,6 +93,7 @@ export class AdminTimetableComponent implements OnInit {
         if(data == 200){
           this.getDepartures();
           this.useForm.reset();
+          this.selectedDepartureId = '';
         }
         else if(data == 203)
         {

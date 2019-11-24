@@ -35,7 +35,7 @@
                 </div>
                 <agm-map *ngIf="markerInfo.location.longitude" (mapClick)="placeMarker($event)" [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" [zoom]="12" >
                     <div>
-                      <agm-marker *ngFor="let station of lineStations" [latitude]="station.XCoordinate" [longitude]="station.YCoordinate" [title]="station.name" [label]="" [iconUrl]="iconPath">
+                      <agm-marker *ngFor="let station of lineStations" [latitude]="station.XCoordinate" [longitude]="station.YCoordinate" [title]="station.name" [label]="" [iconUrl]="markericon">
                         <agm-info-window>
                           Name: {{station.Name}}
                           <br>
@@ -46,6 +46,9 @@
                           Address: {{station.Address}}
                         </agm-info-window>
                       </agm-marker>
+                      <agm-marker [latitude]="this.busMarker.location.latitude" [longitude]="this.busMarker.location.longitude" [title]="busMarker.name" [label]="" [iconUrl]="busicon">
+                        
+                      </agm-marker>
                     </div>
                     <div>
                       <agm-polyline  [strokeColor]="red">
@@ -54,6 +57,14 @@
                       </agm-polyline>
                     </div>
                   </agm-map>
+                  <h1>Current Time</h1>
+<button (click) = "startTimer()">Start Timer</button>
+<button (click) = "stopTimer()">Stop Timer</button>
+<button (click) = "inic()">inic</button>
+
+<div *ngIf="time">
+  <h3>{{time}}</h3>
+</div>
           </div>
         </div>
       </div>

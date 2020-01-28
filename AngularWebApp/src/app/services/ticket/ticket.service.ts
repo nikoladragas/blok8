@@ -15,8 +15,8 @@ export class TicketService {
   }
 
 
-  buyTicket(price: any, type: any, userName: any, email: any) : Observable<any> {
-    return this.http.post('http://localhost:52295/api/Tickets/BuyTicket',[price, type, userName, email]);
+  buyTicket(price: any, type: any, userName: any, email: any, transactionId: any, payerId: any, payerEmail: any) : Observable<any> {
+    return this.http.post(`http://localhost:52295/api/Tickets/BuyTicket?price=${price}&type=${type}&name=${userName}&email=${email}&transactionId=${transactionId}&payerId=${payerId}&payerEmail=${payerEmail}`,[price, type, userName, email, transactionId, payerId, payerEmail]);
   } 
 
   getPrice(ticketType:any , userType : any ): Observable<number> {   //mozes obrisati vrv

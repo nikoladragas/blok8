@@ -73,34 +73,47 @@ namespace WebApp.Controllers
         }
 
         [Route("BuyTicket")]
-        [ResponseType(typeof(Ticket))]
-        public IHttpActionResult BuyTicket(string[] param) //price type name email
+        [ResponseType(typeof(Ticket))]//price type name email
+        public IHttpActionResult BuyTicket(string price, string type, string name, string email, string transactionId, string payerId, string payerEmail) 
         {
             TicketType ticketType;
-            Enum.TryParse(param[1], out ticketType);
+            Enum.TryParse(type, out ticketType);
             int IdPricelistItem = UnitOfWork.PricelistRepository.getPricelistItem(ticketType);
 
             Ticket ticket = new Ticket()
             {
                 Valid = true,
                 IssueDate = DateTime.Now,
-                Price = double.Parse(param[0]),
+                Price = double.Parse(price),
                 IdPricelistItem = IdPricelistItem,
                 IdApplicationUser = null
             };
 
-            if (param[2] != null)
+            if (name != null)
             {
-                ticket.IdApplicationUser = UnitOfWork.PricelistRepository.getIdByEmail(param[2]);
+                try
+                {
+                    ticket.IdApplicationUser = UnitOfWork.PricelistRepository.getIdByEmail(name);
+                }
+                catch
+                {
+
+                }
             }
-            if(param[3] != null)
-                EmailSender.SendEmail(param[3], "Bus ticket purchase confirmation", "You have successfully bought a ticket");
-            //else
+
+            if(email != null)
+                EmailSender.SendEmail(email, "Bus ticket purchase", String.Format("You have successfully bought a ticket.\nType: {0}\nPrice: {1} RSD", type, price));
             
 
+
             UnitOfWork.TicketRepository.Add(ticket);
-            UnitOfWork.Complete();
-            return Ok(ticket.Id);
+            UnitOfWork.TicketRepository.SaveChanges();
+
+            UnitOfWork.TicketRepository.AddPayPal(transactionId, payerEmail, payerEmail, ticket.Id);
+            UnitOfWork.TicketRepository.SaveChanges();
+
+
+            return Ok(200);
         }
     }
 }

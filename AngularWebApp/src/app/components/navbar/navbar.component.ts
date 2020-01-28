@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+    this.loggedIn = localStorage['role'];
     window.location.href = "/login"
   }
 }

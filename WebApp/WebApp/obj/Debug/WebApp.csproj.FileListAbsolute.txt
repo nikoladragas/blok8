@@ -616,3 +616,4 @@ C:\Users\ndrag\Desktop\blok8\WebApp\WebApp\obj\Debug\WebApp.Migrations.Timetable
 C:\Users\ndrag\Desktop\blok8\WebApp\WebApp\obj\Debug\WebApp.Migrations.migrationAug.resources
 C:\Users\ndrag\Desktop\blok8\WebApp\WebApp\obj\Debug\WebApp.Migrations.ControllerMigration.resources
 C:\Users\ndrag\Desktop\blok8\WebApp\WebApp\obj\Debug\WebApp.Migrations.AdminTransactionsMigration.resources
+C:\Users\ndrag\Desktop\blok8\WebApp\WebApp\obj\Debug\WebApp.Migrations.PayPalMigration.resources

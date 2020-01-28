@@ -261,6 +261,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\BusLocation.cs" />
     <Compile Include="Migrations\201905222056072_InitialMigration.cs" />
     <Compile Include="Migrations\201905222056072_InitialMigration.Designer.cs">
       <DependentUpon>201905222056072_InitialMigration.cs</DependentUpon>
@@ -285,6 +286,10 @@
     <Compile Include="Migrations\201909021344222_AdminTransactionsMigration.Designer.cs">
       <DependentUpon>201909021344222_AdminTransactionsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001262204037_PayPalMigration.cs" />
+    <Compile Include="Migrations\202001262204037_PayPalMigration.Designer.cs">
+      <DependentUpon>202001262204037_PayPalMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -294,6 +299,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\PayPal.cs" />
     <Compile Include="Models\Pricelist.cs" />
     <Compile Include="Models\PricelistItem.cs" />
     <Compile Include="Models\Station.cs" />
@@ -353,6 +359,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="libman.json" />
+    <Content Include="wwwroot\lib\signalr\dist\browser\signalr.js" />
+    <Content Include="wwwroot\lib\signalr\dist\browser\signalr.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -431,6 +440,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909021344222_AdminTransactionsMigration.resx">
       <DependentUpon>201909021344222_AdminTransactionsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001262204037_PayPalMigration.resx">
+      <DependentUpon>202001262204037_PayPalMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

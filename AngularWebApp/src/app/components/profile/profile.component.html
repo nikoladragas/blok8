@@ -34,6 +34,12 @@
                 <div class="form-label-group">
                     <input type="date" class="form-control" required formControlName="dateOfBirth">
                 </div>
+                <label>User type:</label>
+                <select id="selectLabel" class="form-control" formControlName="userType">
+                  <option value="0">Regular user</option>
+                  <option value="1">Student</option>
+                  <option value="2">Retired</option>
+                </select><br>
                 <hr>
                 <div *ngIf="this.profileForm.controls.userType.value == 1 || this.profileForm.controls.userType.value == 2" class="form-label-group">
                     <div>
@@ -45,7 +51,7 @@
                 <div><br></div>      
                 
                 <div *ngIf="profileForm.valid">
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase active" type="submit">Save</button>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Save</button>
                   </div>
                   <div *ngIf="!profileForm.valid">
                     <button class="btn btn-lg btn-primary btn-block text-uppercase disabled" disabled >Save</button>

@@ -45,8 +45,8 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/map">Map</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="loggedIn" routerLink="/login">Log out</a>
+        <li class="nav-item" *ngIf="loggedIn">
+          <a class="nav-link" routerLink="/login" (click)="logout()">Log out</a>
         </li>
       </ul>
     </div>

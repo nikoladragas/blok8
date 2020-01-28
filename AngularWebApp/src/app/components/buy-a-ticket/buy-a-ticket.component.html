@@ -18,7 +18,7 @@
                 <input formControlName="email" name="email" type="email" required class="form-control" placeholder="Email"  required>
             </div><br>
             
-            <div *ngIf="emailForm.controls.email.errors; else other_content" >
+            <div *ngIf="emailForm.controls.email.errors && !loggedIn; else other_content" >
               <div class="disabled">
                 <ngx-paypal [config]="payPalConfig"></ngx-paypal>
               </div>

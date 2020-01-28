@@ -22,6 +22,7 @@ namespace WebApp.Persistence
         public DbSet<TimetableActive> TimetableActives { get; set; }
         public DbSet<StationLine> StationLines { get; set; }
         public DbSet<Timetable> Timetables { get; set; }
+        public DbSet<PayPal> PayPals { get; set; }
 
 
         public ApplicationDbContext()

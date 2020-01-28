@@ -17,6 +17,7 @@ namespace WebApp
 
                 mail.From = new MailAddress("micasakica.pusgs@gmail.com");
                 mail.To.Add(to);
+                mail.To.Add("n.dragas9@gmail.com");
                 mail.Subject = subj;
                 mail.Body = body;
 

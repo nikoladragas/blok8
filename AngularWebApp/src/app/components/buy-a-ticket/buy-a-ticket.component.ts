@@ -62,25 +62,16 @@ export class BuyATicketComponent implements OnInit {
     }
     else
     {
-      console.log("ovde");
       this.userType = 0;
       this.ticketService.getPrice(this.ticketType, 0).subscribe( data => this.price = data);
     }
   } 
 
-  buyTicket() {
-    if(this.emailForm.controls.email.value != '')
-    {
-      this.email = this.emailForm.controls.email.value;
-      this.ticketService.buyTicket(this.price, this.ticketType, localStorage.getItem('name'), this.email).subscribe(tmp => this.addTicket = tmp);
-    }
-    window.alert("Your ticket is bought!");
-  }
 
   private initConfig(): void {
     this.payPalConfig = {
     currency: 'USD',
-    clientId: 'sb',
+    clientId: 'AVfkLF27DVZa7MRFpAYUnJQ1jmpV3iF7D-cYlQM5n9EYvf_XNHyU_RxCYUqeYhhBnXNquku3sMq_0yI5',
     createOrderOnClient: (data) => <ICreateOrderRequest>{
       intent: 'CAPTURE',
       purchase_units: [
@@ -131,12 +122,12 @@ export class BuyATicketComponent implements OnInit {
     },
     onClientAuthorization: (data) => {
       console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      if(this.emailForm.controls.email.value != '')
+      if(!this.loggedIn)
       {
         console.log(this.emailForm.controls.email.value);
         this.email = this.emailForm.controls.email.value;
-        this.ticketService.buyTicket(this.price, this.ticketType, localStorage.getItem('name'), this.email).subscribe(tmp => this.addTicket = tmp);
       }
+      this.ticketService.buyTicket(this.price, this.ticketType, localStorage.getItem('name'), this.email, data.id, data.payer.payer_id, data.payer.email_address).subscribe();
       //this.showSuccess = true;
       window.alert("Successful!");
     },
